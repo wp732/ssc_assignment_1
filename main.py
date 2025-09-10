@@ -4,6 +4,14 @@ from merkle_proof import DefaultHasher, verify_consistency, verify_inclusion, co
 import json
 import requests
 import sys
+from pathlib import Path
+import os
+
+def write_checkpoint_file(checkpoint):
+	chkpnt_file = str(Path.home())+"/checkpoint.json"
+	fd = os.open(chkpnt_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+	with os.fdopen(fd, 'w') as f:
+		f.write(json.dumps(checkpoint))
 
 def get_log_entry(log_index, debug=False):
 	# verify that log index value is sane
@@ -26,6 +34,8 @@ def get_latest_checkpoint(debug=False):
 	response = requests.get('https://rekor.sigstore.dev/api/v1/log')
 	if response is not None and response.status_code == 200:
 		checkpoint=response.json()
+		if debug:
+			write_checkpoint_file(checkpoint)
 	else:
 		print("ERROR: get_latest_checkpoint had invalid response", file=sys.stderr)
 	return checkpoint
