@@ -15,7 +15,15 @@ def write_checkpoint_file(checkpoint):
 
 def get_log_entry(log_index, debug=False):
 	# verify that log index value is sane
-	pass
+	entry=None
+	response = requests.get(f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}")
+	if response is not None and response.status_code == 200:
+		entry=response.json()
+		if debug:
+			print(json.dumps(entry, indent=4))
+	else:
+		print("ERROR: get_latest_checkpoint had invalid response", file=sys.stderr)
+	return entry
 
 def get_verification_proof(log_index, debug=False):
 	# verify that log index value is sane
@@ -70,6 +78,9 @@ def main():
 						required=False, type=int)
 	parser.add_argument('--root-hash', help='Root hash for consistency proof',
 						required=False)
+	parser.add_argument('-e', '--entry', help='Get Rekor log entry by log index\
+						Usage: --entry 126574567',
+						required=False, type=int)
 	args = parser.parse_args()
 	if args.debug:
 		debug = True
@@ -82,6 +93,8 @@ def main():
 			print(json.dumps(checkpoint, indent=4))
 	if args.inclusion:
 		inclusion(args.inclusion, args.artifact, debug)
+	if args.entry:
+		get_log_entry(args.entry, debug)
 	if args.consistency:
 		if not args.tree_id:
 			print("please specify tree id for prev checkpoint")
