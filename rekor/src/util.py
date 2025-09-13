@@ -16,10 +16,13 @@ def get_nested_field_by_name(dict_obj, field_name):
 			return subdict[field_name]
 
 def base64_decode(b64):
+	return base64.b64decode(b64)
+
+def base64_decode_as_dict(b64):
 	return json.loads(base64.b64decode(b64).decode())
 
 def extract_public_key_from_base64_der(cert):
-	return serialization.load_der_public_key(base64_decode(cert), backend=default_backend())
+	return serialization.load_der_public_key(base64_decode_as_dict(cert), backend=default_backend())
 
 # extracts and returns public key from a given cert (in pem format)
 def extract_public_key(cert):

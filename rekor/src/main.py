@@ -1,6 +1,5 @@
 import argparse
-#from util import extract_public_key, verify_artifact_signature
-from util import get_nested_field_by_name, base64_decode, extract_public_key_from_base64_der, verify_artifact_signature
+from util import get_nested_field_by_name, base64_decode, base64_decode_as_dict, extract_public_key, verify_artifact_signature
 from merkle_proof import DefaultHasher, verify_consistency, verify_inclusion, compute_leaf_hash
 import json
 import requests
@@ -31,21 +30,25 @@ def get_verification_proof(log_index, debug=False):
 	pass
 
 def get_log_entry_body_decoded(entry):
-	return base64_decode(get_nested_field_by_name(entry, "body"))
+	return base64_decode_as_dict(get_nested_field_by_name(entry, "body"))
 
 def get_base64_log_entry_artifact_signature_from_body(body):
 	if body['kind'] == "hashedrekord":
 		return body['spec']['signature']['content']
 
+def get_base64_log_entry_artifact_signing_cert_from_body(body):
+	if body['kind'] == "hashedrekord":
+		return body['spec']['signature']['publicKey']['content']
+
 def inclusion(log_index, artifact_filepath, debug=False):
 	entry = get_log_entry(log_index)
 	body = get_log_entry_body_decoded(entry)
-	artifact_sig = get_base64_log_entry_artifact_signature_from_body(body)
-	print(artifact_sig)
+	signature = get_base64_log_entry_artifact_signature_from_body(body)
 	# verify that log index and artifact filepath values are sane
-	# extract_public_key(certificate)
-	##pub_key = extract_public_key_from_base64_der(certificate)
-	# verify_artifact_signature(signature, public_key, artifact_filepath)
+
+	certificate = base64_decode(get_base64_log_entry_artifact_signing_cert_from_body(body))
+	public_key = extract_public_key(certificate)
+	verify_artifact_signature(signature, public_key, artifact_filepath)
 	# get_verification_proof(log_index)
 	# verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
 
