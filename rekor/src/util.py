@@ -8,6 +8,7 @@ from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.exceptions import InvalidSignature
 
 import base64
+import json
 
 def get_nested_field_by_name(dict_obj, field_name):
 	for subdict in dict_obj.values():
@@ -15,7 +16,7 @@ def get_nested_field_by_name(dict_obj, field_name):
 			return subdict[field_name]
 
 def base64_decode(b64):
-	return base64.b64decode(b64)
+	return json.loads(base64.b64decode(b64).decode())
 
 def extract_public_key_from_base64_der(cert):
 	return serialization.load_der_public_key(base64_decode(cert), backend=default_backend())
