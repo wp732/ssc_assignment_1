@@ -33,14 +33,14 @@ def get_verification_proof(log_index, debug=False):
 def get_log_entry_body_decoded(entry):
 	return base64_decode(get_nested_field_by_name(entry, "body"))
 
-def get_log_entry_artifact_signature_from_body(body):
+def get_base64_log_entry_artifact_signature_from_body(body):
 	if body['kind'] == "hashedrekord":
 		return body['spec']['signature']['content']
 
 def inclusion(log_index, artifact_filepath, debug=False):
 	entry = get_log_entry(log_index)
 	body = get_log_entry_body_decoded(entry)
-	artifact_sig = get_log_entry_artifact_signature_from_body(body)
+	artifact_sig = get_base64_log_entry_artifact_signature_from_body(body)
 	print(artifact_sig)
 	# verify that log index and artifact filepath values are sane
 	# extract_public_key(certificate)
