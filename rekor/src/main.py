@@ -43,7 +43,7 @@ def get_base64_log_entry_artifact_signing_cert_from_body(body):
 def inclusion(log_index, artifact_filepath, debug=False):
 	entry = get_log_entry(log_index)
 	body = get_log_entry_body_decoded(entry)
-	signature = get_base64_log_entry_artifact_signature_from_body(body)
+	signature = base64_decode(get_base64_log_entry_artifact_signature_from_body(body))
 	# verify that log index and artifact filepath values are sane
 
 	certificate = base64_decode(get_base64_log_entry_artifact_signing_cert_from_body(body))
