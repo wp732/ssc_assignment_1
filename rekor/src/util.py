@@ -9,6 +9,7 @@ from cryptography.exceptions import InvalidSignature
 
 import base64
 import json
+import hashlib
 
 def get_nested_field_by_name(dict_obj, field_name):
 	for subdict in dict_obj.values():
@@ -23,6 +24,13 @@ def base64_decode_as_dict(b64):
 
 def extract_public_key_from_base64_der(cert):
 	return serialization.load_der_public_key(base64_decode_as_dict(cert), backend=default_backend())
+
+def print_public_key_as_pem(public_key):
+	pem = public_key.public_bytes(
+		encoding=serialization.Encoding.PEM,
+		format=serialization.PublicFormat.SubjectPublicKeyInfo
+	)
+	print(pem.decode())
 
 # extracts and returns public key from a given cert (in pem format)
 def extract_public_key(cert):
@@ -59,6 +67,7 @@ def verify_artifact_signature(signature, public_key, artifact_filename):
 	#		 signature = sig_file.read()
 
 	public_key = load_pem_public_key(public_key)
+	#print_public_key_as_pem(public_key)
 	# load the data to be verified
 	with open(artifact_filename, "rb") as data_file:
 		data = data_file.read()
@@ -70,6 +79,7 @@ def verify_artifact_signature(signature, public_key, artifact_filename):
 			data,
 			ec.ECDSA(hashes.SHA256())
 		)
+		print("Signature is valid")
 	except InvalidSignature as e:
 		print("Signature is invalid")
 	except Exception as e:
