@@ -7,6 +7,18 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.exceptions import InvalidSignature
 
+import base64
+
+def get_nested_field_by_name(dict_obj, field_name):
+	for subdict in dict_obj.values():
+		if isinstance(subdict, dict) and field_name in subdict:
+			return subdict[field_name]
+
+def base64_decode(b64):
+	return base64.b64decode(b64)
+
+def extract_public_key_from_base64_der(cert):
+	return serialization.load_der_public_key(base64_decode(cert), backend=default_backend())
 
 # extracts and returns public key from a given cert (in pem format)
 def extract_public_key(cert):

@@ -1,5 +1,6 @@
 import argparse
-from util import extract_public_key, verify_artifact_signature
+#from util import extract_public_key, verify_artifact_signature
+from util import get_nested_field_by_name, base64_decode, extract_public_key_from_base64_der, verify_artifact_signature
 from merkle_proof import DefaultHasher, verify_consistency, verify_inclusion, compute_leaf_hash
 import json
 import requests
@@ -29,13 +30,19 @@ def get_verification_proof(log_index, debug=False):
 	# verify that log index value is sane
 	pass
 
+def get_log_entry_body_decoded(entry):
+	return base64_decode(get_nested_field_by_name(entry, "body"))
+
 def inclusion(log_index, artifact_filepath, debug=False):
+	entry = get_log_entry(log_index)
+	body = get_log_entry_body_decoded(entry)
+	print(body)
 	# verify that log index and artifact filepath values are sane
 	# extract_public_key(certificate)
+	##pub_key = extract_public_key_from_base64_der(certificate)
 	# verify_artifact_signature(signature, public_key, artifact_filepath)
 	# get_verification_proof(log_index)
 	# verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
-	pass
 
 def get_latest_checkpoint(debug=False):
 	checkpoint=None
