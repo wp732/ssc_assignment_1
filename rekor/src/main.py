@@ -29,13 +29,20 @@ def get_verification_proof(log_index, debug=False):
 	# verify that log index value is sane
 	pass
 
-def get_log_entry_body_decoded(entry):
-	return base64_decode_as_dict(get_nested_field_by_name(entry, "body"))
+# WP
+def get_log_entry_body_encoded(entry):
+	return get_nested_field_by_name(entry, "body")
 
+# WP
+def get_log_entry_body_decoded(entry):
+	return base64_decode_as_dict(get_log_entry_body_encoded(entry))
+
+# WP
 def get_base64_log_entry_artifact_signature_from_body(body):
 	if body['kind'] == "hashedrekord":
 		return body['spec']['signature']['content']
 
+# WP
 def get_base64_log_entry_artifact_signing_cert_from_body(body):
 	if body['kind'] == "hashedrekord":
 		return body['spec']['signature']['publicKey']['content']
@@ -50,6 +57,8 @@ def inclusion(log_index, artifact_filepath, debug=False):
 	public_key = extract_public_key(certificate)
 	verify_artifact_signature(signature, public_key, artifact_filepath)
 	# get_verification_proof(log_index)
+	leaf_hash = compute_leaf_hash(get_log_entry_body_encoded(entry))
+	print(leaf_hash)
 	# verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
 
 def get_latest_checkpoint(debug=False):
