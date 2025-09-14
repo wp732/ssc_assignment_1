@@ -27,7 +27,12 @@ def get_log_entry(log_index, debug=False):
 
 def get_verification_proof(log_index, debug=False):
 	# verify that log index value is sane
-	pass
+	iproof=None
+	entry = get_log_entry(log_index, debug)
+	if entry is not None:
+		verification = get_nested_field_by_name(entry, "verification")
+		iproof = verification['inclusionProof']
+	return iproof
 
 # WP
 def get_log_entry_body_encoded(entry):
@@ -56,10 +61,14 @@ def inclusion(log_index, artifact_filepath, debug=False):
 	certificate = base64_decode(get_base64_log_entry_artifact_signing_cert_from_body(body))
 	public_key = extract_public_key(certificate)
 	verify_artifact_signature(signature, public_key, artifact_filepath)
-	# get_verification_proof(log_index)
-	leaf_hash = compute_leaf_hash(get_log_entry_body_encoded(entry))
-	print(leaf_hash)
-	# verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
+	iproof = get_verification_proof(log_index)
+	if iproof is not None:
+		leaf_hash = compute_leaf_hash(get_log_entry_body_encoded(entry))
+		tree_size = iproof['treeSize']
+		root_hash = iproof['rootHash']
+		hashes = iproof['hashes']
+		verify_inclusion(DefaultHasher, log_index, tree_size, leaf_hash, hashes, root_hash)
+		print("Offline root hash calculation for inclusion verified")
 
 def get_latest_checkpoint(debug=False):
 	checkpoint=None
