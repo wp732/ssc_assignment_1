@@ -31,7 +31,7 @@ rekor_pub=${tmp_dir}/rekor.pub
 curl -s https://rekor.sigstore.dev/api/v1/log/publicKey > $rekor_pub
 
 rekor_entry=${tmp_dir}/rekor_entry.json
-${thisdir}/rekor_by_index.sh $pass_args > $rekor_entry
+${thisdir}/rekor_entry_by_log_index.sh $pass_args > $rekor_entry
 
 rekor_entry_set=${tmp_dir}/rekor_entry_set.txt
 jq -r '.[].verification.signedEntryTimestamp' $rekor_entry > $rekor_entry_set
