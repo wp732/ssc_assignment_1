@@ -67,7 +67,8 @@ def inclusion(log_index, artifact_filepath, debug=False):
 		tree_size = iproof['treeSize']
 		root_hash = iproof['rootHash']
 		hashes = iproof['hashes']
-		verify_inclusion(DefaultHasher, log_index, tree_size, leaf_hash, hashes, root_hash)
+		index = iproof['logIndex']
+		verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
 		print("Offline root hash calculation for inclusion verified")
 
 def get_latest_checkpoint(debug=False):
