@@ -33,6 +33,16 @@ def get_verification_proof(log_index, debug=False):
 	return inclusion_proof
 
 # WP
+def get_log_consistency_proof(current_tree_size, previous_tree_size):
+	consistency_proof=None
+	response = requests.get(f"https://rekor.sigstore.dev/api/v1/log/proof/consistency?firstSize={previous_tree_size}&secondSize={current_tree_size}")
+	if response is not None and response.status_code == 200:
+		proof=response.json()
+	else:
+		print("ERROR: get_log_consistency_proof had invalid response", file=sys.stderr)
+	return consistency_proof
+
+# WP
 def get_log_entry_body_encoded(entry):
 	return get_nested_field_by_name(entry, "body")
 
@@ -103,15 +113,18 @@ def consistency(prev_checkpoint, debug=False):
         prev_checkpoint["treeSize"] = args.tree_size
         prev_checkpoint["rootHash"] = args.root_hash
 
-		verify_consistency(
-			hasher,
-			prev_checkpoint["treeSize"],
-			checkpoint["treeSize"],
-			proof,
-			prev_checkpoint["rootHash"],
-			checkpoint["rootHash"]
-		)
-		print("Consistency verification successful.")
+
+		consistency_proof=get_log_consistency_proof(checkpoint["treeSize"], prev_checkpoint["treeSize"])
+		if consistency_proof is not None:
+			verify_consistency(
+				DefaultHasher,
+				prev_checkpoint["treeSize"],
+				checkpoint["treeSize"],
+				proof,
+				prev_checkpoint["rootHash"],
+				checkpoint["rootHash"]
+			)
+			print("Consistency verification successful.")
 
 def main():
 	debug = False
