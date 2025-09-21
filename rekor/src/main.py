@@ -96,9 +96,20 @@ def get_latest_checkpoint(debug=False):
 	return checkpoint
 
 def consistency(prev_checkpoint, debug=False):
-	# verify that prev checkpoint is not empty
-	# get_latest_checkpoint()
-	pass
+	checkpoint = get_latest_checkpoint(debug)
+	if checkpoint is not None and prev_checkpoint is not None:
+        prev_checkpoint["treeID"] = args.tree_id
+        prev_checkpoint["treeSize"] = args.tree_size
+        prev_checkpoint["rootHash"] = args.root_hash
+
+		verify_consistency(
+			hasher,
+			prev_checkpoint["treeSize"],
+			size2,
+			proof,
+			prev_checkpoint["rootHash"], root2
+		)
+		print("Consistency verification successful.")
 
 def main():
 	debug = False
