@@ -33,11 +33,11 @@ def get_verification_proof(log_index, debug=False):
 	return inclusion_proof
 
 # WP
-def get_log_consistency_proof(current_tree_size, previous_tree_size):
+def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
 	consistency_proof=None
-	response = requests.get(f"https://rekor.sigstore.dev/api/v1/log/proof/consistency?firstSize={previous_tree_size}&secondSize={current_tree_size}")
+	response = requests.get(f"https://rekor.sigstore.dev/api/v1/log/proof?firstSize={previous_tree_size}&lastSize={current_tree_size}&treeId={tree_id}")
 	if response is not None and response.status_code == 200:
-		proof=response.json()
+		consistency_proof=response.json()
 	else:
 		print("ERROR: get_log_consistency_proof had invalid response", file=sys.stderr)
 	return consistency_proof
@@ -110,13 +110,13 @@ def consistency(prev_checkpoint, debug=False):
 	if checkpoint is not None \
 	and prev_checkpoint is not None \
 	and prev_checkpoint["treeID"] == checkpoint["treeID"]:
-		consistency_proof=get_log_consistency_proof(checkpoint["treeSize"], prev_checkpoint["treeSize"])
+		consistency_proof=get_log_consistency_proof(checkpoint["treeID"], checkpoint["treeSize"], prev_checkpoint["treeSize"])
 		if consistency_proof is not None:
 			verify_consistency(
 				DefaultHasher,
 				prev_checkpoint["treeSize"],
 				checkpoint["treeSize"],
-				consistency_proof["consistency"],
+				consistency_proof["hashes"],
 				prev_checkpoint["rootHash"],
 				checkpoint["rootHash"]
 			)
