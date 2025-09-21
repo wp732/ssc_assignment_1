@@ -107,20 +107,16 @@ def get_latest_checkpoint(debug=False):
 
 def consistency(prev_checkpoint, debug=False):
 	checkpoint = get_latest_checkpoint(debug)
-	if checkpoint is not None
-	and prev_checkpoint is not None
+	if checkpoint is not None \
+	and prev_checkpoint is not None \
 	and prev_checkpoint["treeID"] == checkpoint["treeID"]:
-        prev_checkpoint["treeSize"] = args.tree_size
-        prev_checkpoint["rootHash"] = args.root_hash
-
-
 		consistency_proof=get_log_consistency_proof(checkpoint["treeSize"], prev_checkpoint["treeSize"])
 		if consistency_proof is not None:
 			verify_consistency(
 				DefaultHasher,
 				prev_checkpoint["treeSize"],
 				checkpoint["treeSize"],
-				proof,
+				consistency_proof["consistency"],
 				prev_checkpoint["rootHash"],
 				checkpoint["rootHash"]
 			)
