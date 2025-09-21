@@ -14,7 +14,6 @@ def write_checkpoint_file(checkpoint):
 		f.write(json.dumps(checkpoint))
 
 def get_log_entry(log_index, debug=False):
-	# verify that log index value is sane
 	entry=None
 	response = requests.get(f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}")
 	if response is not None and response.status_code == 200:
@@ -26,13 +25,12 @@ def get_log_entry(log_index, debug=False):
 	return entry
 
 def get_verification_proof(log_index, debug=False):
-	# verify that log index value is sane
-	iproof=None
+	inclusion_proof=None
 	entry = get_log_entry(log_index, debug)
 	if entry is not None:
 		verification = get_nested_field_by_name(entry, "verification")
-		iproof = verification['inclusionProof']
-	return iproof
+		inclusion_proof = verification['inclusionProof']
+	return inclusion_proof
 
 # WP
 def get_log_entry_body_encoded(entry):
@@ -53,21 +51,36 @@ def get_base64_log_entry_artifact_signing_cert_from_body(body):
 		return body['spec']['signature']['publicKey']['content']
 
 def inclusion(log_index, artifact_filepath, debug=False):
+	# Get entry from Rekor log by logIndex
 	entry = get_log_entry(log_index)
-	body = get_log_entry_body_decoded(entry)
-	signature = base64_decode(get_base64_log_entry_artifact_signature_from_body(body))
-	# verify that log index and artifact filepath values are sane
 
+	# Get decoded body from Rekor log entry
+	body = get_log_entry_body_decoded(entry)
+
+	# Get decoded artifact signature from body data
+	signature = base64_decode(get_base64_log_entry_artifact_signature_from_body(body))
+
+	# Get decoded certificate from body data
 	certificate = base64_decode(get_base64_log_entry_artifact_signing_cert_from_body(body))
+
+	# Get public key (in PEM format) from certificate
 	public_key = extract_public_key(certificate)
+
+	# Use the DSA algorithm to verify the artifact signature
 	verify_artifact_signature(signature, public_key, artifact_filepath)
-	iproof = get_verification_proof(log_index)
-	if iproof is not None:
-		leaf_hash = compute_leaf_hash(get_log_entry_body_encoded(entry))
-		tree_size = iproof['treeSize']
-		root_hash = iproof['rootHash']
-		hashes = iproof['hashes']
-		index = iproof['logIndex']
+
+	# Get inclusionProof from the Rekor log entry
+	inclusion_proof = get_verification_proof(log_index)
+	if inclusion_proof is not None:
+		# Note: Rekor log is implemented as a Merkle Tree (MT)
+		root_hash = inclusion_proof['rootHash'] # rootHash of MT at time entry was added
+		tree_size = inclusion_proof['treeSize'] # treeSize of MT at time entry was added
+		leaf_hash = compute_leaf_hash(get_log_entry_body_encoded(entry)) # sha256 of null prefixed body
+		hashes = inclusion_proof['hashes'] # MT sibling node hashes
+		index = inclusion_proof['logIndex'] # monotonic sequence number assinged when entry was included
+		
+		# Verification is by way of deriving a rootHash from inclusionProof sibling hashes and leaf hash
+		# and comparing that to rootHash from inclusionProof
 		verify_inclusion(DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash)
 		print("Offline root hash calculation for inclusion verified")
 
