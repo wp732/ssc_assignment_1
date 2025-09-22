@@ -22,10 +22,6 @@ def base64_decode(b64):
 def base64_decode_as_dict(b64):
 	return json.loads(base64.b64decode(b64).decode())
 
-# WP: This function extracts the public key
-def extract_public_key_from_base64_der(cert):
-	return serialization.load_der_public_key(base64_decode_as_dict(cert), backend=default_backend())
-
 def print_public_key_as_pem(public_key):
 	pem = public_key.public_bytes(
 		encoding=serialization.Encoding.PEM,

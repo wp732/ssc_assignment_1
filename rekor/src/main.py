@@ -106,10 +106,12 @@ def get_latest_checkpoint(debug=False):
 	return checkpoint
 
 def consistency(prev_checkpoint, debug=False):
+	# Get latest checkpoint from Rekor
 	checkpoint = get_latest_checkpoint(debug)
 	if checkpoint is not None \
 	and prev_checkpoint is not None \
 	and prev_checkpoint["treeID"] == checkpoint["treeID"]:
+		# Get consistency proof object from Rekor
 		consistency_proof=get_log_consistency_proof(checkpoint["treeID"], checkpoint["treeSize"], prev_checkpoint["treeSize"])
 		if consistency_proof is not None:
 			verify_consistency(
