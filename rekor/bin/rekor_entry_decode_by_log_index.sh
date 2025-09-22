@@ -8,13 +8,13 @@ use_print_msg=0
 use_print_body=0
 while [ $# -ne 0 ]; do
 	case $1 in
-		-v )
+		-v )	# verify log entry signature
 			use_verify=1
 			;;
-		-m )
+		-m )	# print log entry
 			use_print_msg=1
 			;;
-		-b )
+		-b )	# print log entry body
 			use_print_body=1
 			;;
 		* )
