@@ -20,6 +20,18 @@ import os
 
 
 def write_checkpoint_file(checkpoint):
+    """Function to persist a Rekor checkpoint file to home directory.
+
+    Args:
+        checkpoint: checkpoint object returned from API call to Rekor.
+
+    Returns:
+        None:
+
+    Raises:
+        Exception or Error: Various exceptions from syscalls are possible.
+        
+    """
     chkpnt_file = str(Path.home()) + "/checkpoint.json"
     fd = os.open(chkpnt_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
     with os.fdopen(fd, "w") as f:
@@ -27,6 +39,16 @@ def write_checkpoint_file(checkpoint):
 
 
 def get_log_entry(log_index, debug=False):
+    """Get a Rekor log entry object via Rekor API call.
+
+    Args:
+        log_index: The logIndex for the Rekor log entry.
+        debug: Enable or disable debugging.
+
+    Returns:
+        dict or None: A Rekor log entry object or None if log entry not found.
+
+    """
     entry = None
     response = requests.get(
         f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}"
@@ -44,6 +66,16 @@ def get_log_entry(log_index, debug=False):
 
 
 def get_verification_proof(log_index, debug=False):
+    """Get inclusionProof from specific Rekor log entry.
+
+    Args:
+        log_index: logIndex of Rekor log entry to search for.
+        debug: Enable or disable debugging.
+
+    Returns:
+        dict or None: The inclusionProof is returned if one exists.
+
+    """
     inclusion_proof = None
     entry = get_log_entry(log_index, debug)
     if entry is not None:
@@ -54,6 +86,17 @@ def get_verification_proof(log_index, debug=False):
 
 # WP
 def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
+    """Get Consistency proof 
+
+    Args:
+        tree_id:
+        current_tree_size:
+        previous_tree_size:
+
+    Returns:
+        dict or None: On success a dict of all hashes required to compute a consistency proof is returned.
+
+    """
     consistency_proof = None
     response = requests.get(
         f"https://rekor.sigstore.dev/api/v1/log/proof?firstSize={previous_tree_size}&lastSize={current_tree_size}&treeId={tree_id}"
@@ -70,27 +113,75 @@ def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
 
 # WP
 def get_log_entry_body_encoded(entry):
+    """Get log entry body from a Rekor log entry object.
+
+    Args:
+        entry: A Rekor log entry object.
+
+    Returns:
+        base64 str or None: On success the base64 encoded body from a Rekor log entry object is returned.
+
+    """
     return get_nested_field_by_name(entry, "body")
 
 
 # WP
 def get_log_entry_body_decoded(entry):
+    """Get base64 decoded log entry body from a Rekor log entry object.
+
+    Args:
+        entry: A Rekor log entry object.
+
+    Returns:
+        dict or None: On success the base64 decoded body from a Rekor log entry object is returned.
+
+    """
     return base64_decode_as_dict(get_log_entry_body_encoded(entry))
 
 
 # WP
 def get_base64_log_entry_artifact_signature_from_body(body):
+    """Get base64 log entry artifact signature from a Rekor log entry body.
+
+    Args:
+        body: A base64 decoded body from a Rekor log entry object.
+
+    Returns:
+        str or None: If body of correct kind was passed then artifact signature is returned.
+
+    """
     if body["kind"] == "hashedrekord":
         return body["spec"]["signature"]["content"]
 
-
 # WP
 def get_base64_log_entry_artifact_signing_cert_from_body(body):
+    """Get base64 log entry artifact signing cert from a Rekor log entry body object.
+
+    Args:
+        body: A base64 decoded body from a Rekor log entry object.
+
+    Returns:
+        str or None: If body of correct kind was passed then artifact signing cert is returned.
+
+    """
     if body["kind"] == "hashedrekord":
         return body["spec"]["signature"]["publicKey"]["content"]
 
 
 def inclusion(log_index, artifact_filepath, debug=False):
+    """Test that a specific log entry exists in Rekor log for a given artifact file.
+       Print a confirmation message to stdout on success.
+
+    Args:
+        log_index: The logIndex for the Rekor log entry.
+        artifact_filepath: The file path of the artifact file that was cosgin submitted to Rekor.
+        debug: Enable or disable debugging.
+
+    Raises:
+        FileNotFoundError: If invalid artifact_filepath specified.
+        AttributeError: This can occur if wrong log_index was specified.
+
+    """
     # Get entry from Rekor log by logIndex
     entry = get_log_entry(log_index)
 
@@ -140,6 +231,16 @@ def inclusion(log_index, artifact_filepath, debug=False):
 
 
 def get_latest_checkpoint(debug=False):
+    """Get latest checkpoint object from Rekor.
+       If debug is enabled then also perist the checkpoint.
+
+    Args:
+        debug: Enable or disable debugging.
+
+    Returns:
+        dict or None: On success the latest Rekor checkpoint object is returned.
+
+    """
     checkpoint = None
     response = requests.get("https://rekor.sigstore.dev/api/v1/log")
     if response is not None and response.status_code == 200:
@@ -155,6 +256,19 @@ def get_latest_checkpoint(debug=False):
 
 
 def consistency(prev_checkpoint, debug=False):
+    """Test the consistency between the current Rekor checkpoint and a previously captured checkpoint.
+       Print a confirmation message to stdout on success.
+       A ERROR message will print of Rekor API response code not 200.
+
+    Args:
+        prev_checkpoint:
+        debug: Enable or disable debugging.
+
+    Raises:
+        ValueError: Can occur if invalid root-hash was speicifed.
+        RootMismatchError: If wrong tree-size was specified.
+
+    """
     # Get latest checkpoint from Rekor
     checkpoint = get_latest_checkpoint(debug)
     if (
@@ -181,6 +295,8 @@ def consistency(prev_checkpoint, debug=False):
 
 
 def main():
+    """main.
+    """
     debug = False
     parser = argparse.ArgumentParser(description="Rekor Verifier")
     parser.add_argument(
