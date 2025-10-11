@@ -1,0 +1,383 @@
+./main.py:2:80: E501 line too long (126 > 79 characters)
+./main.py:3:80: E501 line too long (95 > 79 characters)
+./main.py:10:1: E302 expected 2 blank lines, found 1
+./main.py:11:1: W191 indentation contains tabs
+./main.py:12:1: W191 indentation contains tabs
+./main.py:13:1: W191 indentation contains tabs
+./main.py:14:1: W191 indentation contains tabs
+./main.py:16:1: E302 expected 2 blank lines, found 1
+./main.py:17:1: W191 indentation contains tabs
+./main.py:17:7: E225 missing whitespace around operator
+./main.py:18:1: W191 indentation contains tabs
+./main.py:18:80: E501 line too long (95 > 79 characters)
+./main.py:19:1: W191 indentation contains tabs
+./main.py:20:1: W191 indentation contains tabs
+./main.py:20:8: E225 missing whitespace around operator
+./main.py:21:1: W191 indentation contains tabs
+./main.py:22:1: W191 indentation contains tabs
+./main.py:23:1: W191 indentation contains tabs
+./main.py:24:1: W191 indentation contains tabs
+./main.py:25:1: W191 indentation contains tabs
+./main.py:27:1: E302 expected 2 blank lines, found 1
+./main.py:28:1: W191 indentation contains tabs
+./main.py:28:17: E225 missing whitespace around operator
+./main.py:29:1: W191 indentation contains tabs
+./main.py:30:1: W191 indentation contains tabs
+./main.py:31:1: W191 indentation contains tabs
+./main.py:32:1: W191 indentation contains tabs
+./main.py:33:1: W191 indentation contains tabs
+./main.py:36:1: E302 expected 2 blank lines, found 1
+./main.py:37:1: W191 indentation contains tabs
+./main.py:37:19: E225 missing whitespace around operator
+./main.py:38:1: W191 indentation contains tabs
+./main.py:38:80: E501 line too long (149 > 79 characters)
+./main.py:39:1: W191 indentation contains tabs
+./main.py:40:1: W191 indentation contains tabs
+./main.py:40:20: E225 missing whitespace around operator
+./main.py:41:1: W191 indentation contains tabs
+./main.py:42:1: W191 indentation contains tabs
+./main.py:42:80: E501 line too long (81 > 79 characters)
+./main.py:43:1: W191 indentation contains tabs
+./main.py:46:1: E302 expected 2 blank lines, found 1
+./main.py:47:1: W191 indentation contains tabs
+./main.py:50:1: E302 expected 2 blank lines, found 1
+./main.py:51:1: W191 indentation contains tabs
+./main.py:54:1: E302 expected 2 blank lines, found 1
+./main.py:55:1: W191 indentation contains tabs
+./main.py:56:1: W191 indentation contains tabs
+./main.py:59:1: E302 expected 2 blank lines, found 1
+./main.py:60:1: W191 indentation contains tabs
+./main.py:61:1: W191 indentation contains tabs
+./main.py:63:1: E302 expected 2 blank lines, found 1
+./main.py:64:1: W191 indentation contains tabs
+./main.py:65:1: W191 indentation contains tabs
+./main.py:67:1: W191 indentation contains tabs
+./main.py:68:1: W191 indentation contains tabs
+./main.py:70:1: W191 indentation contains tabs
+./main.py:71:1: W191 indentation contains tabs
+./main.py:71:80: E501 line too long (83 > 79 characters)
+./main.py:73:1: W191 indentation contains tabs
+./main.py:74:1: W191 indentation contains tabs
+./main.py:74:80: E501 line too long (88 > 79 characters)
+./main.py:76:1: W191 indentation contains tabs
+./main.py:77:1: W191 indentation contains tabs
+./main.py:79:1: W191 indentation contains tabs
+./main.py:80:1: W191 indentation contains tabs
+./main.py:82:1: W191 indentation contains tabs
+./main.py:83:1: W191 indentation contains tabs
+./main.py:84:1: W191 indentation contains tabs
+./main.py:85:1: W191 indentation contains tabs
+./main.py:86:1: W191 indentation contains tabs
+./main.py:86:42: E261 at least two spaces before inline comment
+./main.py:86:80: E501 line too long (82 > 79 characters)
+./main.py:87:1: W191 indentation contains tabs
+./main.py:87:42: E261 at least two spaces before inline comment
+./main.py:87:80: E501 line too long (82 > 79 characters)
+./main.py:88:1: W191 indentation contains tabs
+./main.py:88:67: E261 at least two spaces before inline comment
+./main.py:88:80: E501 line too long (97 > 79 characters)
+./main.py:89:1: W191 indentation contains tabs
+./main.py:89:37: E261 at least two spaces before inline comment
+./main.py:90:1: W191 indentation contains tabs
+./main.py:90:38: E261 at least two spaces before inline comment
+./main.py:90:80: E501 line too long (98 > 79 characters)
+./main.py:91:1: W191 indentation contains tabs
+./main.py:91:1: W293 blank line contains whitespace
+./main.py:92:1: W191 indentation contains tabs
+./main.py:92:80: E501 line too long (98 > 79 characters)
+./main.py:93:1: W191 indentation contains tabs
+./main.py:94:1: W191 indentation contains tabs
+./main.py:94:80: E501 line too long (81 > 79 characters)
+./main.py:95:1: W191 indentation contains tabs
+./main.py:97:1: E302 expected 2 blank lines, found 1
+./main.py:98:1: W191 indentation contains tabs
+./main.py:98:12: E225 missing whitespace around operator
+./main.py:99:1: W191 indentation contains tabs
+./main.py:100:1: W191 indentation contains tabs
+./main.py:101:1: W191 indentation contains tabs
+./main.py:101:13: E225 missing whitespace around operator
+./main.py:102:1: W191 indentation contains tabs
+./main.py:103:1: W191 indentation contains tabs
+./main.py:104:1: W191 indentation contains tabs
+./main.py:105:1: W191 indentation contains tabs
+./main.py:106:1: W191 indentation contains tabs
+./main.py:108:1: E302 expected 2 blank lines, found 1
+./main.py:109:1: W191 indentation contains tabs
+./main.py:110:1: W191 indentation contains tabs
+./main.py:111:1: W191 indentation contains tabs
+./main.py:112:1: W191 indentation contains tabs
+./main.py:112:2: E122 continuation line missing indentation or outdented
+./main.py:113:1: W191 indentation contains tabs
+./main.py:113:2: E122 continuation line missing indentation or outdented
+./main.py:114:1: W191 indentation contains tabs
+./main.py:115:1: W191 indentation contains tabs
+./main.py:115:20: E225 missing whitespace around operator
+./main.py:115:80: E501 line too long (120 > 79 characters)
+./main.py:116:1: W191 indentation contains tabs
+./main.py:117:1: W191 indentation contains tabs
+./main.py:118:1: W191 indentation contains tabs
+./main.py:119:1: W191 indentation contains tabs
+./main.py:120:1: W191 indentation contains tabs
+./main.py:121:1: W191 indentation contains tabs
+./main.py:122:1: W191 indentation contains tabs
+./main.py:123:1: W191 indentation contains tabs
+./main.py:124:1: W191 indentation contains tabs
+./main.py:125:1: W191 indentation contains tabs
+./main.py:127:1: E302 expected 2 blank lines, found 1
+./main.py:128:1: W191 indentation contains tabs
+./main.py:129:1: W191 indentation contains tabs
+./main.py:130:1: W191 indentation contains tabs
+./main.py:131:1: W191 indentation contains tabs
+./main.py:131:7: E128 continuation line under-indented for visual indent
+./main.py:131:43: E261 at least two spaces before inline comment
+./main.py:132:1: W191 indentation contains tabs
+./main.py:133:1: W191 indentation contains tabs
+./main.py:134:1: W191 indentation contains tabs
+./main.py:134:7: E128 continuation line under-indented for visual indent
+./main.py:135:1: W191 indentation contains tabs
+./main.py:136:1: W191 indentation contains tabs
+./main.py:137:1: W191 indentation contains tabs
+./main.py:138:1: W191 indentation contains tabs
+./main.py:139:1: W191 indentation contains tabs
+./main.py:139:7: E128 continuation line under-indented for visual indent
+./main.py:140:1: W191 indentation contains tabs
+./main.py:141:1: W191 indentation contains tabs
+./main.py:142:1: W191 indentation contains tabs
+./main.py:142:7: E128 continuation line under-indented for visual indent
+./main.py:143:1: W191 indentation contains tabs
+./main.py:144:1: W191 indentation contains tabs
+./main.py:145:1: W191 indentation contains tabs
+./main.py:145:7: E128 continuation line under-indented for visual indent
+./main.py:146:1: W191 indentation contains tabs
+./main.py:147:1: W191 indentation contains tabs
+./main.py:147:7: E128 continuation line under-indented for visual indent
+./main.py:148:1: W191 indentation contains tabs
+./main.py:149:1: W191 indentation contains tabs
+./main.py:149:7: E128 continuation line under-indented for visual indent
+./main.py:150:1: W191 indentation contains tabs
+./main.py:151:1: W191 indentation contains tabs
+./main.py:151:7: E128 continuation line under-indented for visual indent
+./main.py:152:1: W191 indentation contains tabs
+./main.py:153:1: W191 indentation contains tabs
+./main.py:154:1: W191 indentation contains tabs
+./main.py:154:7: E128 continuation line under-indented for visual indent
+./main.py:155:1: W191 indentation contains tabs
+./main.py:156:1: W191 indentation contains tabs
+./main.py:157:1: W191 indentation contains tabs
+./main.py:158:1: W191 indentation contains tabs
+./main.py:159:1: W191 indentation contains tabs
+./main.py:160:1: W191 indentation contains tabs
+./main.py:161:1: W191 indentation contains tabs
+./main.py:162:1: W191 indentation contains tabs
+./main.py:163:1: W191 indentation contains tabs
+./main.py:164:1: W191 indentation contains tabs
+./main.py:165:1: W191 indentation contains tabs
+./main.py:166:1: W191 indentation contains tabs
+./main.py:167:1: W191 indentation contains tabs
+./main.py:168:1: W191 indentation contains tabs
+./main.py:169:1: W191 indentation contains tabs
+./main.py:170:1: W191 indentation contains tabs
+./main.py:171:1: W191 indentation contains tabs
+./main.py:172:1: W191 indentation contains tabs
+./main.py:173:1: W191 indentation contains tabs
+./main.py:174:1: W191 indentation contains tabs
+./main.py:175:1: W191 indentation contains tabs
+./main.py:176:1: W191 indentation contains tabs
+./main.py:177:1: W191 indentation contains tabs
+./main.py:178:1: W191 indentation contains tabs
+./main.py:180:1: W191 indentation contains tabs
+./main.py:181:1: W191 indentation contains tabs
+./main.py:182:1: W191 indentation contains tabs
+./main.py:183:1: W191 indentation contains tabs
+./main.py:185:1: W191 indentation contains tabs
+./main.py:187:1: E305 expected 2 blank lines after class or function definition, found 1
+./main.py:188:1: W191 indentation contains tabs
+./merkle_proof.py:9:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:10:1: W191 indentation contains tabs
+./merkle_proof.py:11:1: W191 indentation contains tabs
+./merkle_proof.py:13:1: W191 indentation contains tabs
+./merkle_proof.py:14:1: W191 indentation contains tabs
+./merkle_proof.py:16:1: W191 indentation contains tabs
+./merkle_proof.py:17:1: W191 indentation contains tabs
+./merkle_proof.py:19:1: W191 indentation contains tabs
+./merkle_proof.py:20:1: W191 indentation contains tabs
+./merkle_proof.py:21:1: W191 indentation contains tabs
+./merkle_proof.py:22:1: W191 indentation contains tabs
+./merkle_proof.py:23:1: W191 indentation contains tabs
+./merkle_proof.py:25:1: W191 indentation contains tabs
+./merkle_proof.py:25:26: E741 ambiguous variable name 'l'
+./merkle_proof.py:26:1: W191 indentation contains tabs
+./merkle_proof.py:27:1: W191 indentation contains tabs
+./merkle_proof.py:28:1: W191 indentation contains tabs
+./merkle_proof.py:29:1: W191 indentation contains tabs
+./merkle_proof.py:31:1: W191 indentation contains tabs
+./merkle_proof.py:32:1: W191 indentation contains tabs
+./merkle_proof.py:35:1: E305 expected 2 blank lines after class or function definition, found 1
+./merkle_proof.py:37:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:38:1: W191 indentation contains tabs
+./merkle_proof.py:39:1: W191 indentation contains tabs
+./merkle_proof.py:40:1: W191 indentation contains tabs
+./merkle_proof.py:41:1: W191 indentation contains tabs
+./merkle_proof.py:42:1: W191 indentation contains tabs
+./merkle_proof.py:43:1: W191 indentation contains tabs
+./merkle_proof.py:45:1: W191 indentation contains tabs
+./merkle_proof.py:46:1: W191 indentation contains tabs
+./merkle_proof.py:47:1: W191 indentation contains tabs
+./merkle_proof.py:48:1: W191 indentation contains tabs
+./merkle_proof.py:49:1: W191 indentation contains tabs
+./merkle_proof.py:50:1: W191 indentation contains tabs
+./merkle_proof.py:51:1: W191 indentation contains tabs
+./merkle_proof.py:52:1: W191 indentation contains tabs
+./merkle_proof.py:53:1: W191 indentation contains tabs
+./merkle_proof.py:54:1: W191 indentation contains tabs
+./merkle_proof.py:54:80: E501 line too long (97 > 79 characters)
+./merkle_proof.py:55:1: W191 indentation contains tabs
+./merkle_proof.py:56:1: W191 indentation contains tabs
+./merkle_proof.py:57:1: W191 indentation contains tabs
+./merkle_proof.py:59:1: W191 indentation contains tabs
+./merkle_proof.py:60:1: W191 indentation contains tabs
+./merkle_proof.py:61:1: W191 indentation contains tabs
+./merkle_proof.py:63:1: W191 indentation contains tabs
+./merkle_proof.py:64:1: W191 indentation contains tabs
+./merkle_proof.py:65:1: W191 indentation contains tabs
+./merkle_proof.py:66:1: W191 indentation contains tabs
+./merkle_proof.py:68:1: W191 indentation contains tabs
+./merkle_proof.py:69:1: W191 indentation contains tabs
+./merkle_proof.py:69:80: E501 line too long (103 > 79 characters)
+./merkle_proof.py:71:1: W191 indentation contains tabs
+./merkle_proof.py:73:1: W191 indentation contains tabs
+./merkle_proof.py:74:1: W191 indentation contains tabs
+./merkle_proof.py:75:1: W191 indentation contains tabs
+./merkle_proof.py:76:1: W191 indentation contains tabs
+./merkle_proof.py:78:1: W191 indentation contains tabs
+./merkle_proof.py:79:1: W191 indentation contains tabs
+./merkle_proof.py:80:1: W191 indentation contains tabs
+./merkle_proof.py:82:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:83:1: W191 indentation contains tabs
+./merkle_proof.py:84:1: W191 indentation contains tabs
+./merkle_proof.py:86:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:87:1: W191 indentation contains tabs
+./merkle_proof.py:88:1: W191 indentation contains tabs
+./merkle_proof.py:89:1: W191 indentation contains tabs
+./merkle_proof.py:91:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:92:1: W191 indentation contains tabs
+./merkle_proof.py:94:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:95:1: W191 indentation contains tabs
+./merkle_proof.py:96:1: W191 indentation contains tabs
+./merkle_proof.py:97:1: W191 indentation contains tabs
+./merkle_proof.py:98:1: W191 indentation contains tabs
+./merkle_proof.py:99:1: W191 indentation contains tabs
+./merkle_proof.py:100:1: W191 indentation contains tabs
+./merkle_proof.py:102:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:103:1: W191 indentation contains tabs
+./merkle_proof.py:104:1: W191 indentation contains tabs
+./merkle_proof.py:105:1: W191 indentation contains tabs
+./merkle_proof.py:106:1: W191 indentation contains tabs
+./merkle_proof.py:108:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:109:1: W191 indentation contains tabs
+./merkle_proof.py:110:1: W191 indentation contains tabs
+./merkle_proof.py:111:1: W191 indentation contains tabs
+./merkle_proof.py:113:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:114:1: W191 indentation contains tabs
+./merkle_proof.py:115:1: W191 indentation contains tabs
+./merkle_proof.py:116:1: W191 indentation contains tabs
+./merkle_proof.py:118:1: W191 indentation contains tabs
+./merkle_proof.py:119:1: W191 indentation contains tabs
+./merkle_proof.py:119:80: E501 line too long (106 > 79 characters)
+./merkle_proof.py:121:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:122:1: W191 indentation contains tabs
+./merkle_proof.py:123:1: W191 indentation contains tabs
+./merkle_proof.py:125:1: W191 indentation contains tabs
+./merkle_proof.py:126:1: W191 indentation contains tabs
+./merkle_proof.py:126:80: E501 line too long (91 > 79 characters)
+./merkle_proof.py:128:1: W191 indentation contains tabs
+./merkle_proof.py:129:1: W191 indentation contains tabs
+./merkle_proof.py:130:1: W191 indentation contains tabs
+./merkle_proof.py:132:1: W191 indentation contains tabs
+./merkle_proof.py:133:1: W191 indentation contains tabs
+./merkle_proof.py:134:1: W191 indentation contains tabs
+./merkle_proof.py:138:1: W191 indentation contains tabs
+./merkle_proof.py:139:1: W191 indentation contains tabs
+./merkle_proof.py:140:1: W191 indentation contains tabs
+./merkle_proof.py:142:1: W191 indentation contains tabs
+./merkle_proof.py:143:1: W191 indentation contains tabs
+./merkle_proof.py:144:1: W191 indentation contains tabs
+./merkle_proof.py:144:80: E501 line too long (92 > 79 characters)
+./merkle_proof.py:145:1: W191 indentation contains tabs
+./merkle_proof.py:146:1: W191 indentation contains tabs
+./merkle_proof.py:147:1: W191 indentation contains tabs
+./merkle_proof.py:148:1: W191 indentation contains tabs
+./merkle_proof.py:152:1: E302 expected 2 blank lines, found 1
+./merkle_proof.py:153:1: W191 indentation contains tabs
+./merkle_proof.py:155:1: W191 indentation contains tabs
+./merkle_proof.py:156:1: W191 indentation contains tabs
+./merkle_proof.py:157:1: W191 indentation contains tabs
+./merkle_proof.py:158:1: W191 indentation contains tabs
+./merkle_proof.py:160:1: W191 indentation contains tabs
+./merkle_proof.py:161:1: W191 indentation contains tabs
+./merkle_proof.py:163:1: W191 indentation contains tabs
+./merkle_proof.py:164:1: W191 indentation contains tabs
+./util.py:12:1: F401 'hashlib' imported but unused
+./util.py:14:1: E302 expected 2 blank lines, found 1
+./util.py:15:1: W191 indentation contains tabs
+./util.py:16:1: W191 indentation contains tabs
+./util.py:17:1: W191 indentation contains tabs
+./util.py:19:1: E302 expected 2 blank lines, found 1
+./util.py:20:1: W191 indentation contains tabs
+./util.py:22:1: E302 expected 2 blank lines, found 1
+./util.py:23:1: W191 indentation contains tabs
+./util.py:25:1: E302 expected 2 blank lines, found 1
+./util.py:26:1: W191 indentation contains tabs
+./util.py:27:1: W191 indentation contains tabs
+./util.py:28:1: W191 indentation contains tabs
+./util.py:29:1: W191 indentation contains tabs
+./util.py:30:1: W191 indentation contains tabs
+./util.py:33:1: E302 expected 2 blank lines, found 1
+./util.py:34:1: E115 expected an indented block (comment)
+./util.py:35:1: E115 expected an indented block (comment)
+./util.py:35:1: E265 block comment should start with '# '
+./util.py:36:1: E115 expected an indented block (comment)
+./util.py:36:1: E265 block comment should start with '# '
+./util.py:38:1: E115 expected an indented block (comment)
+./util.py:39:1: W191 indentation contains tabs
+./util.py:42:1: W191 indentation contains tabs
+./util.py:45:1: E265 block comment should start with '# '
+./util.py:46:1: E265 block comment should start with '# '
+./util.py:47:1: E265 block comment should start with '# '
+./util.py:48:1: E265 block comment should start with '# '
+./util.py:49:1: E265 block comment should start with '# '
+./util.py:50:1: W191 indentation contains tabs
+./util.py:51:1: W191 indentation contains tabs
+./util.py:52:1: W191 indentation contains tabs
+./util.py:53:1: W191 indentation contains tabs
+./util.py:55:1: W191 indentation contains tabs
+./util.py:57:1: E302 expected 2 blank lines, found 1
+./util.py:58:1: W191 indentation contains tabs
+./util.py:59:1: W191 indentation contains tabs
+./util.py:60:1: W191 indentation contains tabs
+./util.py:60:2: E265 block comment should start with '# '
+./util.py:62:1: W191 indentation contains tabs
+./util.py:62:3: E117 over-indented (comment)
+./util.py:63:1: W191 indentation contains tabs
+./util.py:63:2: E265 block comment should start with '# '
+./util.py:64:1: W191 indentation contains tabs
+./util.py:64:2: E265 block comment should start with '# '
+./util.py:66:1: W191 indentation contains tabs
+./util.py:67:1: W191 indentation contains tabs
+./util.py:67:2: E265 block comment should start with '# '
+./util.py:68:1: W191 indentation contains tabs
+./util.py:69:1: W191 indentation contains tabs
+./util.py:70:1: W191 indentation contains tabs
+./util.py:72:1: W191 indentation contains tabs
+./util.py:73:1: W191 indentation contains tabs
+./util.py:74:1: W191 indentation contains tabs
+./util.py:75:1: W191 indentation contains tabs
+./util.py:76:1: W191 indentation contains tabs
+./util.py:77:1: W191 indentation contains tabs
+./util.py:78:1: W191 indentation contains tabs
+./util.py:79:1: W191 indentation contains tabs
+./util.py:80:1: W191 indentation contains tabs
+./util.py:80:2: F841 local variable 'e' is assigned to but never used
+./util.py:81:1: W191 indentation contains tabs
+./util.py:82:1: W191 indentation contains tabs
+./util.py:83:1: W191 indentation contains tabs
