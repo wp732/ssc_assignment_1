@@ -13,19 +13,19 @@ cd rekor/src/
 
 # Use ruff linter on original *.py from assignment 1
 
-ruff check -o ../../logs/ruff.inital.txt
+ruff check -o ../../logs/ruff.initial.txt
 
 # Use flake8 linter on original *.py from assignment 1
 # Note: The sed is to filter out non-printable color escape characters.
 #       The --color never option did not work so used sed instead.
 
-flake8 | sed -r "s/\x1B\[[0-9;]*[mK]//g" > ../../logs/flake8.inital.txt
+flake8 | sed -r "s/\x1B\[[0-9;]*[mK]//g" > ../../logs/flake8.initial.txt
 
 # Use mypy type checker on original *.py from assignment 1
 
-mypy main.py  merkle_proof.py  util.py > ../../logs/mypy.inital.txt
+mypy main.py  merkle_proof.py  util.py > ../../logs/mypy.initial.txt
 
-# Note: mypy inital run had error:
+# Note: mypy initial run had error:
 # main.py:5: error: Library stubs not installed for "requests"  [import-untyped]
 # Remidiation was to run: mypy --install-types
 # This subsequent run resutled in no errors:
@@ -44,7 +44,7 @@ bandit -r . -o ../../logs/bandit.initial.txt -f txt
 
 # Use black code formatter to reformat code to be PEP-8 compliant
 
-black --verbose ./main.py 2>&1 | tee ../../logs/black.inital.txt
+black --verbose ./main.py 2>&1 | tee ../../logs/black.initial.txt
 
 # Use doq to create docstring skeletons in code, then edit the code to fill in the details
 
