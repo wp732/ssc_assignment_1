@@ -17,6 +17,7 @@ import requests
 import sys
 from pathlib import Path
 import os
+import stat
 
 
 def write_checkpoint_file(checkpoint):
@@ -33,7 +34,8 @@ def write_checkpoint_file(checkpoint):
         
     """
     chkpnt_file = str(Path.home()) + "/checkpoint.json"
-    fd = os.open(chkpnt_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    USER_RW_ACCESS = stat.S_IRUSR | stat.S_IWUSR
+    fd = os.open(chkpnt_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, USER_RW_ACCESS)
     with os.fdopen(fd, "w") as f:
         f.write(json.dumps(checkpoint))
 
@@ -101,7 +103,7 @@ def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
     response = requests.get(
         f"https://rekor.sigstore.dev/api/v1/log/proof?firstSize={previous_tree_size}&lastSize={current_tree_size}&treeId={tree_id}"
     )
-    if response response.status_code == 200:
+    if response.status_code == 200:
         consistency_proof = response.json()
     else:
         print(
@@ -243,7 +245,7 @@ def get_latest_checkpoint(debug=False):
     """
     checkpoint = None
     response = requests.get("https://rekor.sigstore.dev/api/v1/log")
-    if response response.status_code == 200:
+    if response.status_code == 200:
         checkpoint = response.json()
         if debug:
             write_checkpoint_file(checkpoint)
