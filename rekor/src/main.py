@@ -53,13 +53,13 @@ def get_log_entry(log_index, debug=False):
     response = requests.get(
         f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}"
     )
-    if response is not None and response.status_code == 200:
+    if response.status_code == 200:
         entry = response.json()
         if debug:
             print(json.dumps(entry, indent=4))
     else:
         print(
-            "ERROR: get_latest_checkpoint had invalid response",
+            f"ERROR: get_latest_checkpoint had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return entry
@@ -101,11 +101,11 @@ def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
     response = requests.get(
         f"https://rekor.sigstore.dev/api/v1/log/proof?firstSize={previous_tree_size}&lastSize={current_tree_size}&treeId={tree_id}"
     )
-    if response is not None and response.status_code == 200:
+    if response response.status_code == 200:
         consistency_proof = response.json()
     else:
         print(
-            "ERROR: get_log_consistency_proof had invalid response",
+            f"ERROR: get_log_consistency_proof had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return consistency_proof
@@ -243,13 +243,13 @@ def get_latest_checkpoint(debug=False):
     """
     checkpoint = None
     response = requests.get("https://rekor.sigstore.dev/api/v1/log")
-    if response is not None and response.status_code == 200:
+    if response response.status_code == 200:
         checkpoint = response.json()
         if debug:
             write_checkpoint_file(checkpoint)
     else:
         print(
-            "ERROR: get_latest_checkpoint had invalid response",
+            f"ERROR: get_latest_checkpoint had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return checkpoint
