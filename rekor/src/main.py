@@ -1,4 +1,12 @@
+"""Program for handling Rekor log entry verifications."""
+
+import os
+import stat
+import sys
+import json
+from pathlib import Path
 import argparse
+import requests
 from util import (
     get_nested_field_by_name,
     base64_decode,
@@ -12,13 +20,8 @@ from merkle_proof import (
     verify_inclusion,
     compute_leaf_hash,
 )
-import json
-import requests
-import sys
-from pathlib import Path
-import os
-import stat
 
+USER_RW_ACCESS = stat.S_IRUSR | stat.S_IWUSR
 
 def write_checkpoint_file(checkpoint):
     """Function to persist a Rekor checkpoint file to home directory.
@@ -31,11 +34,13 @@ def write_checkpoint_file(checkpoint):
 
     Raises:
         Exception or Error: Various exceptions from syscalls are possible.
-        
     """
     chkpnt_file = str(Path.home()) + "/checkpoint.json"
-    USER_RW_ACCESS = stat.S_IRUSR | stat.S_IWUSR
-    fd = os.open(chkpnt_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, USER_RW_ACCESS)
+    fd = os.open(
+        chkpnt_file,
+        os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
+        USER_RW_ACCESS
+    )
     with os.fdopen(fd, "w") as f:
         f.write(json.dumps(checkpoint))
 
@@ -53,7 +58,8 @@ def get_log_entry(log_index, debug=False):
     """
     entry = None
     response = requests.get(
-        f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}"
+        f"https://rekor.sigstore.dev/api/v1/log/entries?logIndex={log_index}",
+        timeout=10
     )
     if response.status_code == 200:
         entry = response.json()
@@ -61,7 +67,8 @@ def get_log_entry(log_index, debug=False):
             print(json.dumps(entry, indent=4))
     else:
         print(
-            f"ERROR: get_latest_checkpoint had invalid response code = {response.status_code}",
+            f"ERROR: get_latest_checkpoint"
+            f" had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return entry
@@ -88,7 +95,7 @@ def get_verification_proof(log_index, debug=False):
 
 # WP
 def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
-    """Get Consistency proof 
+    """Get Consistency proof
 
     Args:
         tree_id:
@@ -96,18 +103,23 @@ def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
         previous_tree_size:
 
     Returns:
-        dict or None: On success a dict of all hashes required to compute a consistency proof is returned.
-
+        dict or None: On success a dict of all hashes required to compute a
+            consistency proof is returned.
     """
     consistency_proof = None
     response = requests.get(
-        f"https://rekor.sigstore.dev/api/v1/log/proof?firstSize={previous_tree_size}&lastSize={current_tree_size}&treeId={tree_id}"
+        f"https://rekor.sigstore.dev/api/v1/log/proof"
+        f"?firstSize={previous_tree_size}"
+        f"&lastSize={current_tree_size}"
+        f"&treeId={tree_id}",
+        timeout=10
     )
     if response.status_code == 200:
         consistency_proof = response.json()
     else:
         print(
-            f"ERROR: get_log_consistency_proof had invalid response code = {response.status_code}",
+            f"ERROR: get_log_consistency_proof"
+            f" had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return consistency_proof
@@ -121,8 +133,8 @@ def get_log_entry_body_encoded(entry):
         entry: A Rekor log entry object.
 
     Returns:
-        base64 str or None: On success the base64 encoded body from a Rekor log entry object is returned.
-
+        base64 str or None: On success the base64 encoded body from a
+            Rekor log entry object is returned.
     """
     return get_nested_field_by_name(entry, "body")
 
@@ -135,8 +147,8 @@ def get_log_entry_body_decoded(entry):
         entry: A Rekor log entry object.
 
     Returns:
-        dict or None: On success the base64 decoded body from a Rekor log entry object is returned.
-
+        dict or None: On success the base64 decoded body from a
+            Rekor log entry object is returned.
     """
     return base64_decode_as_dict(get_log_entry_body_encoded(entry))
 
@@ -149,43 +161,49 @@ def get_base64_log_entry_artifact_signature_from_body(body):
         body: A base64 decoded body from a Rekor log entry object.
 
     Returns:
-        str or None: If body of correct kind was passed then artifact signature is returned.
-
+        str or None: If body of correct kind was passed then
+            an artifact signature is returned.
     """
+    res = None
     if body["kind"] == "hashedrekord":
-        return body["spec"]["signature"]["content"]
+        res = body["spec"]["signature"]["content"]
+    return res
+
 
 # WP
 def get_base64_log_entry_artifact_signing_cert_from_body(body):
-    """Get base64 log entry artifact signing cert from a Rekor log entry body object.
+    """Get base64 log entry artifact signing cert from a
+        Rekor log entry body object.
 
     Args:
         body: A base64 decoded body from a Rekor log entry object.
 
     Returns:
-        str or None: If body of correct kind was passed then artifact signing cert is returned.
-
+        str or None: If body of correct kind was passed then
+            an artifact signing cert is returned.
     """
+    res = None
     if body["kind"] == "hashedrekord":
-        return body["spec"]["signature"]["publicKey"]["content"]
+        res = body["spec"]["signature"]["publicKey"]["content"]
+    return res
 
 
 def inclusion(log_index, artifact_filepath, debug=False):
-    """Test that a specific log entry exists in Rekor log for a given artifact file.
-       Print a confirmation message to stdout on success.
+    """Test that a specific log entry exists in Rekor log for a
+        given artifact file. Print a confirmation message to stdout on success.
 
     Args:
         log_index: The logIndex for the Rekor log entry.
-        artifact_filepath: The file path of the artifact file that was cosgin submitted to Rekor.
+        artifact_filepath: The file path of the artifact file that was
+            cosgin submitted to Rekor.
         debug: Enable or disable debugging.
 
     Raises:
         FileNotFoundError: If invalid artifact_filepath specified.
         AttributeError: This can occur if wrong log_index was specified.
-
     """
     # Get entry from Rekor log by logIndex
-    entry = get_log_entry(log_index)
+    entry = get_log_entry(log_index, debug)
 
     # Get decoded body from Rekor log entry
     body = get_log_entry_body_decoded(entry)
@@ -224,8 +242,9 @@ def inclusion(log_index, artifact_filepath, debug=False):
             "logIndex"
         ]  # monotonic sequence number assinged when entry was included
 
-        # Verification is by way of deriving a rootHash from inclusionProof sibling hashes and leaf hash
-        # and comparing that to rootHash from inclusionProof
+        # Verification is by way of deriving a rootHash from
+        # inclusionProof sibling hashes and leaf hash and
+        # comparing that to rootHash from inclusionProof.
         verify_inclusion(
             DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash
         )
@@ -240,26 +259,31 @@ def get_latest_checkpoint(debug=False):
         debug: Enable or disable debugging.
 
     Returns:
-        dict or None: On success the latest Rekor checkpoint object is returned.
-
+        dict or None: On success the latest Rekor checkpoint object
+            is returned.
     """
     checkpoint = None
-    response = requests.get("https://rekor.sigstore.dev/api/v1/log")
+    response = requests.get(
+        "https://rekor.sigstore.dev/api/v1/log",
+        timeout=10
+    )
     if response.status_code == 200:
         checkpoint = response.json()
         if debug:
             write_checkpoint_file(checkpoint)
     else:
         print(
-            f"ERROR: get_latest_checkpoint had invalid response code = {response.status_code}",
+            f"ERROR: get_latest_checkpoint"
+            f" had invalid response code = {response.status_code}",
             file=sys.stderr,
         )
     return checkpoint
 
 
 def consistency(prev_checkpoint, debug=False):
-    """Test the consistency between the current Rekor checkpoint and a previously captured checkpoint.
-       Print a confirmation message to stdout on success.
+    """Test the consistency between the current Rekor checkpoint and
+        a previously captured checkpoint.
+        Print a confirmation message to stdout on success.
        A ERROR message will print of Rekor API response code not 200.
 
     Args:
@@ -269,7 +293,6 @@ def consistency(prev_checkpoint, debug=False):
     Raises:
         ValueError: Can occur if invalid root-hash was speicifed.
         RootMismatchError: If wrong tree-size was specified.
-
     """
     # Get latest checkpoint from Rekor
     checkpoint = get_latest_checkpoint(debug)
@@ -308,29 +331,29 @@ def main():
         "-c",
         "--checkpoint",
         help="Obtain latest checkpoint\
-						from Rekor Server public instance",
+            from Rekor Server public instance",
         required=False,
         action="store_true",
     )
     parser.add_argument(
         "--inclusion",
         help="Verify inclusion of an\
-						entry in the Rekor Transparency Log using log index\
-						and artifact filename.\
-						Usage: --inclusion 126574567",
+            entry in the Rekor Transparency Log using log index\
+            and artifact filename.\
+            Usage: --inclusion 126574567",
         required=False,
         type=int,
     )
     parser.add_argument(
         "--artifact",
         help="Artifact filepath for verifying\
-						signature",
+            signature",
         required=False,
     )
     parser.add_argument(
         "--consistency",
         help="Verify consistency of a given\
-						checkpoint with the latest checkpoint.",
+            checkpoint with the latest checkpoint.",
         action="store_true",
     )
     parser.add_argument(
@@ -349,7 +372,7 @@ def main():
         "-e",
         "--entry",
         help="Get Rekor log entry by log index\
-						Usage: --entry 126574567",
+            Usage: --entry 126574567",
         required=False,
         type=int,
     )
