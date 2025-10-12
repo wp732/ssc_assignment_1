@@ -1,0 +1,31 @@
+************* Module merkle_proof
+merkle_proof.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+merkle_proof.py:10:0: C0115: Missing class docstring (missing-class-docstring)
+merkle_proof.py:14:4: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:17:4: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:20:4: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:26:4: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:32:4: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:40:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:92:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:97:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:103:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:107:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:116:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:123:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:129:0: C0115: Missing class docstring (missing-class-docstring)
+merkle_proof.py:139:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:160:0: C0116: Missing function or method docstring (missing-function-docstring)
+merkle_proof.py:182:0: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module util
+util.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+util.py:14:0: C0116: Missing function or method docstring (missing-function-docstring)
+util.py:22:0: C0116: Missing function or method docstring (missing-function-docstring)
+util.py:26:0: C0116: Missing function or method docstring (missing-function-docstring)
+util.py:30:0: C0116: Missing function or method docstring (missing-function-docstring)
+util.py:39:0: C0116: Missing function or method docstring (missing-function-docstring)
+util.py:64:0: C0116: Missing function or method docstring (missing-function-docstring)
+
+------------------------------------------------------------------
+Your code has been rated at 9.12/10 (previous run: 9.08/10, +0.04)
+

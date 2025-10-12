@@ -1,0 +1,9 @@
+Identified `/home/user/Documents/github/ssc_assignment_1` as project root containing a .git directory.
+Using configuration from project root.
+line_length: 79
+target_version: ['py311']
+Found input source: "main.py"
+reformatted main.py
+
+All done! ✨ 🍰 ✨
+1 file reformatted.
