@@ -12,9 +12,11 @@ from cryptography.exceptions import InvalidSignature
 
 
 def get_nested_field_by_name(dict_obj, field_name):
+    res = None
     for subdict in dict_obj.values():
         if isinstance(subdict, dict) and field_name in subdict:
-            return subdict[field_name]
+            res = subdict[field_name]
+    return res
 
 
 def base64_decode(b64):
