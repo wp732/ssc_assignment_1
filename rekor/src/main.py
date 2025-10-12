@@ -23,6 +23,7 @@ from merkle_proof import (
 
 USER_RW_ACCESS = stat.S_IRUSR | stat.S_IWUSR
 
+
 def write_checkpoint_file(checkpoint):
     """Function to persist a Rekor checkpoint file to home directory.
 
