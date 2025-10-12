@@ -70,7 +70,7 @@ def get_log_entry(log_index, debug=False):
         print(
             f"ERROR: get_latest_checkpoint"
             f" had invalid response code = {response.status_code}",
-            file=sys.stderr,
+            file=sys.stderr
         )
     return entry
 
@@ -121,7 +121,7 @@ def get_log_consistency_proof(tree_id, current_tree_size, previous_tree_size):
         print(
             f"ERROR: get_log_consistency_proof"
             f" had invalid response code = {response.status_code}",
-            file=sys.stderr,
+            file=sys.stderr
         )
     return consistency_proof
 
@@ -276,7 +276,7 @@ def get_latest_checkpoint(debug=False):
         print(
             f"ERROR: get_latest_checkpoint"
             f" had invalid response code = {response.status_code}",
-            file=sys.stderr,
+            file=sys.stderr
         )
     return checkpoint
 
@@ -300,24 +300,38 @@ def consistency(prev_checkpoint, debug=False):
     if (
         checkpoint is not None
         and prev_checkpoint is not None
-        and prev_checkpoint["treeID"] == checkpoint["treeID"]
     ):
-        # Get consistency proof object from Rekor
-        consistency_proof = get_log_consistency_proof(
-            checkpoint["treeID"],
-            checkpoint["treeSize"],
-            prev_checkpoint["treeSize"],
-        )
-        if consistency_proof is not None:
-            verify_consistency(
-                DefaultHasher,
-                prev_checkpoint["treeSize"],
+        if prev_checkpoint["treeID"] == checkpoint["treeID"]:
+            # Get consistency proof object from Rekor
+            consistency_proof = get_log_consistency_proof(
+                checkpoint["treeID"],
                 checkpoint["treeSize"],
-                consistency_proof["hashes"],
-                prev_checkpoint["rootHash"],
-                checkpoint["rootHash"],
+                prev_checkpoint["treeSize"],
             )
-            print("Consistency verification successful.")
+            if consistency_proof is not None:
+                verify_consistency(
+                    DefaultHasher,
+                    prev_checkpoint["treeSize"],
+                    checkpoint["treeSize"],
+                    consistency_proof["hashes"],
+                    prev_checkpoint["rootHash"],
+                    checkpoint["rootHash"],
+                )
+                print("Consistency verification successful.")
+            else:
+                print(
+                    f"ERROR: consistencyProof not found for "
+                    f" checkpoint with rootHash={checkpoint['rootHash']}"
+                    f" in Rekor tree={checkpoint['treeID']}",
+                    file=sys.stderr
+                )
+        else:
+            print(
+                f"ERROR: Consistency check failed due to treeId mismatch."
+                f" Previous checkpoint treeId={prev_checkpoint['treeID']}"
+                f" Current checkpoint treeId={checkpoint['treeID']}",
+                file=sys.stderr
+            )
 
 
 def main():
