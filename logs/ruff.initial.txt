@@ -1,0 +1,37 @@
+E741 Ambiguous variable name: `l`
+  --> merkle_proof.py:25:26
+   |
+23 |         return h.digest()
+24 |
+25 |     def hash_children(self, l, r):
+   |                             ^
+26 |         h = self.new()
+27 |         b = bytes([RFC6962_NODE_HASH_PREFIX]) + l + r
+   |
+
+F401 [*] `hashlib` imported but unused
+  --> util.py:12:8
+   |
+10 | import base64
+11 | import json
+12 | import hashlib
+   |        ^^^^^^^
+13 |
+14 | def get_nested_field_by_name(dict_obj, field_name):
+   |
+help: Remove unused import: `hashlib`
+
+F841 [*] Local variable `e` is assigned to but never used
+  --> util.py:80:29
+   |
+78 |         )
+79 |         print("Signature is valid")
+80 |     except InvalidSignature as e:
+   |                                ^
+81 |         print("Signature is invalid")
+82 |     except Exception as e:
+   |
+help: Remove assignment to unused variable `e`
+
+Found 3 errors.
+[*] 2 fixable with the `--fix` option.
