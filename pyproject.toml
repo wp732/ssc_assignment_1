@@ -1,3 +1,11 @@
 [tool.black]
 line-length = 79		# strict PEP-8 wrapping at column 79
 target-version = ['py311']
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+	"too-many-arguments",
+	"too-many-positional-arguments",
+	"too-many-locals",
+	"broad-exception-caught"
+]
