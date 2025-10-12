@@ -11,3 +11,4 @@ The instructions for how the commands were installed and run is in docs/assignme
 The log output for commands run (ruff, mypy, black, etc.) are in the logs directory  
 The file rekor/src/initial_py_files.tar.gz is a save of original *.py files used for the tooling runs that produced the logs/*.inital.txt outputs.  
 The *.py files that exist in rekor/src at time of assignment 2 submission are the final modified files.  
+The *.final.txt logs are the outputs of the *.py cleaned files.  
