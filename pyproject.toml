@@ -1,17 +1,19 @@
-[tool.poetry]
+[project]
 name = "ssc-assignment-1"
 version = "2.0.0"
 description = ""
-authors = ["Warren Pfeffer <wp732@nyu.edu>"]
+authors = [
+    {name = "Warren Pfeffer",email = "wp732@nyu.edu"}
+]
 license = "Apache-2.0"
 readme = "README.md"
-packages = [{include = "ssc_assignment_1"}]
+requires-python = ">=3.11"
+dependencies = [
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
