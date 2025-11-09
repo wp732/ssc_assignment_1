@@ -9,7 +9,5 @@
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
 Report all vulnerabilites to wp732@nyu.edu.
 Do not create GitHub issues for vulnerablities please.
