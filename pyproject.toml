@@ -1,3 +1,21 @@
+[project]
+name = "ssc-assignment-1"
+version = "2.0.0"
+description = ""
+authors = [
+    {name = "Warren Pfeffer",email = "wp732@nyu.edu"}
+]
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.black]
 line-length = 79		# strict PEP-8 wrapping at column 79
 target-version = ['py311']
@@ -8,4 +26,14 @@ disable = [
 	"too-many-positional-arguments",
 	"too-many-locals",
 	"broad-exception-caught"
+]
+
+[dependency-groups]
+dev = [
+    "pylint (>=4.0.2,<5.0.0)",
+    "black (>=25.9.0,<26.0.0)",
+    "ruff (>=0.14.4,<0.15.0)",
+    "mypy (>=1.18.2,<2.0.0)",
+    "bandit (>=1.8.6,<2.0.0)",
+    "doq (>=0.10.0,<0.11.0)"
 ]
