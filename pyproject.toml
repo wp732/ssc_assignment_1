@@ -7,8 +7,11 @@ authors = [
 ]
 license = "Apache-2.0"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<4.0"
 dependencies = [
+    "jsonschema (>=4.25.1,<5.0.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "cryptography (>=46.0.3,<47.0.0)"
 ]
 
 
@@ -28,6 +31,10 @@ disable = [
 	"broad-exception-caught"
 ]
 
+[tool.deptry]
+root = ["src", "tests"]
+exclude = ["venv", ".venv", ".direnv", ".git", "setup.py"]
+
 [dependency-groups]
 dev = [
     "pylint (>=4.0.2,<5.0.0)",
@@ -35,5 +42,7 @@ dev = [
     "ruff (>=0.14.4,<0.15.0)",
     "mypy (>=1.18.2,<2.0.0)",
     "bandit (>=1.8.6,<2.0.0)",
-    "doq (>=0.10.0,<0.11.0)"
+    "doq (>=0.10.0,<0.11.0)",
+    "pytest (>=9.0.0,<10.0.0)",
+    "deptry (>=0.24.0,<0.25.0)"
 ]
