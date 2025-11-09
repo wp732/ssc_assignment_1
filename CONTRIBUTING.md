@@ -15,7 +15,7 @@ Thanks for your interest in contributing! By participating, you agree to follow 
    - Reference similar features or use cases if possible.
 
 3. **Pull Requests**
-   - Fork the repository and create a feature branch.
+   - Clone the repository and create a feature branch.
    - Follow the code style and formatting used in the project.
    - Write tests for new functionality if applicable.
    - Ensure all tests pass before submitting.
@@ -23,14 +23,12 @@ Thanks for your interest in contributing! By participating, you agree to follow 
 
 4. **Communication**
    - Be respectful and constructive.
-   - Do unto others as you would have them do unto you.
-   - Follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+   - Do unto others as you would have them do unto you.  
 
 ## Getting Help
 
 - Check the README and existing issues for guidance.
 - Ask questions on the issue tracker before starting a major change.
-- Join our community discussions if available.
 
-Thank you for helping make [PROJECT NAME] better!
+Thank you for helping make ssc_assignment_1 better!
 
