@@ -1,4 +1,4 @@
-# Repository for assignment for Software Supply Chain security assignments  
+# Repository for Software Supply Chain security assignments  
 
 # SSC assignment 1 (using Sigstore tools)   
 
