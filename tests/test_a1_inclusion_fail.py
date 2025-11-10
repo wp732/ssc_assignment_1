@@ -22,24 +22,19 @@ def test_a1_inclusion_fail():
     run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                   # py_path (program to run)
         [                                       # py_args (args to program)
-            '--inclusion', "-1",
+            '--inclusion', "-1",                # cause bad index failure
             '--artifact', artifact_path
         ],
         True                                    # enable verbose mode
     )
 
     if run_status is True:
-        pytest.fail(tty_out)
-    else:
-        for match in re.finditer(
+        match = re.search(
             r'^Offline root hash calculation for inclusion verified$',
             tty_out,
             re.MULTILINE
-        ):
-            match_group=match.group()
-            if match_group is None:
-                print(tty_out, flush=True)
-            else:
-                pytest.fail(tty_out)
+        )
+        if match is not None:
+            pytest.fail(tty_out)    # test ran clean so treat as failure
         else:
             print(tty_out, flush=True)

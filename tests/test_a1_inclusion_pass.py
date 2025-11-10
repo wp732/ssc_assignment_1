@@ -1,4 +1,4 @@
-"""Test rekor inclusion as per assignment 1."""
+"""Test rekor inclusion as per assignment 1 success."""
 
 import sys
 import json
@@ -33,16 +33,16 @@ def test_inclusion():
         ]
     )
 
+    print(f"li: {log_index_str}")
     if run_status is False:
         pytest.fail(tty_out)
     else:
-        for match in re.finditer(
+        match = re.search(
             r'^Offline root hash calculation for inclusion verified$',
             tty_out,
             re.MULTILINE
-        ):
-            match_group=match.group()
-            if match_group is None:
-                pytest.fail(tty_out)
-            else:
-                print(tty_out, flush=True)
+        )
+        if match is not None:
+            pytest.fail(tty_out)
+        else:
+            print(tty_out, flush=True)
