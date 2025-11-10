@@ -1,4 +1,4 @@
-"""Test rekor inclusion as per assignment 1."""
+"""Test rekor log entry query as per assignment 1."""
 
 import sys
 import json
@@ -28,8 +28,7 @@ def test_inclusion():
     run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                   # py_path (program to run)
         [                                       # py_args (args to program)
-            '--inclusion', log_index_str,
-            '--artifact', artifact_path
+            '--entry', log_index_str,
         ]
     )
 
