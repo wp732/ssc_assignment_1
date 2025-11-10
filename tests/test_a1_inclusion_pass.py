@@ -33,7 +33,6 @@ def test_inclusion():
         ]
     )
 
-    print(f"li: {log_index_str}")
     if run_status is False:
         pytest.fail(tty_out)
     else:
