@@ -5,6 +5,7 @@ from jsonschema import validate
 import os
 import subprocess
 import sys
+import pytest
 
 
 def get_test_dir():
@@ -25,27 +26,45 @@ def get_src_dir(service):
     return src_dir
 
 
-def run_py_program(py_path, py_args):
+def run_py_program(py_path, py_args, debug=False):
 
-    result = subprocess.run(
-        [ 'python', py_path, ] + py_args,
-        capture_output=True,
-        text=True
-    )
+    run_status = True
 
-    return result.stdout
+    try:
+        result = subprocess.run(
+            [ 'python', py_path, ] + py_args,
+            capture_output=True,
+            check=True,
+            text=True
+        )
+
+        tty_out = result.stdout
+        if result.returncode != 0:
+            run_status = False
+            tty_out = f"{tty_out}\n\n{result.stderr}"
+        #print(f"tty: {tty_out}", flush=True)
+    except subprocess.CalledProcessError as e:
+        run_status = False
+        tty_out = f"Process failed with returncode: {str(e.returncode)}"
+        tty_out = f"{tty_out}\n\n{e.stderr}"
+
+    return (run_status, tty_out)
 
 
 def validate_py_program_json_output(schema_path, py_path, py_args):
 
-    std_out = run_py_program(py_path, py_args)
+    run_status, tty_out = run_py_program(py_path, py_args)
 
-    data = json.loads(std_out)
+    if run_status is True:
+        data = json.loads(tty_out)
 
-    with open(schema_path, "r") as schema_file:
-        schema = json.load(schema_file)
+        with open(schema_path, "r") as schema_file:
+            schema = json.load(schema_file)
 
-    validate(instance=data, schema=schema)
+        validate(instance=data, schema=schema)
+        print(f"SUCCESS: output from {py_path} matches schema {schema_path}")
+    else:
+        pyest.fail(tty_out)
 
 
 # Sample usage:

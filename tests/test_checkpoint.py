@@ -1,5 +1,7 @@
 """Test if rekor checkpoint ouput matches expected schema."""
 
+import pytest
+
 from run_test_wrappers import (
     get_test_dir,
     get_src_dir,

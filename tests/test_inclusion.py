@@ -1,6 +1,9 @@
 """Test rekor inclusion."""
 
 import sys
+import json
+import re
+import pytest
 
 from run_test_wrappers import (
     get_test_dir,
@@ -20,14 +23,30 @@ def test_inclusion():
     with open(artifact_bundle_path, "r") as artifact_bundle_file:
         artifact_bundle = json.load(artifact_bundle_file)
         log_index = artifact_bundle['rekorBundle']['Payload']['logIndex']
+        log_index_str = str(log_index)
 
-    std_out = run_py_program(
-        #f"{test_dir}/inclusion_schema.json",    # output schema path
+    run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                   # py_path (program to run)
         [                                       # py_args (args to program)
-            '--inclusion', log_index,
+            '--inclusion', log_index_str,
             '--artifact', artifact_path
-        ]
+        ], True
     )
 
-    print(std_out, flush=True)
+    #print(f"tty_out: {tty_out}", flush=True)
+
+    if run_status is False:
+        pytest.fail(tty_out)
+        #pytest.fail("See stderr output above FAILURES section")
+    else:
+        for match in re.finditer(
+            r'^Offline root hash calculation for inclusion verified$',
+            tty_out,
+            re.MULTILINE
+        ):
+            match_group=match.group()
+            #print(match_group, flush=True)
+            if match_group is None:
+                pytest.fail(tty_out)
+            else:
+                print(tty_out, flush=True)
