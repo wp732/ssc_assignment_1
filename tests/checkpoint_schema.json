@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "inactiveShards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rootHash": {
+            "type": "string"
+          },
+          "signedTreeHead": {
+            "type": "string"
+          },
+          "treeID": {
+            "type": "string"
+          },
+          "treeSize": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "rootHash",
+          "signedTreeHead",
+          "treeID",
+          "treeSize"
+        ]
+      }
+    },
+    "rootHash": {
+      "type": "string"
+    },
+    "signedTreeHead": {
+      "type": "string"
+    },
+    "treeID": {
+      "type": "string"
+    },
+    "treeSize": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "inactiveShards",
+    "rootHash",
+    "signedTreeHead",
+    "treeID",
+    "treeSize"
+  ]
+}

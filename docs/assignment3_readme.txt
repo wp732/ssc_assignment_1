@@ -49,4 +49,12 @@ poetry run bandit -r . -o ../../logs/bandit.final.txt -f txt
 # Install pytest
 
 poetry add --dev pytest
-poetry add jsonschema
+poetry add jsonschema	# needed in test .py codes
+
+# Genrate test schemas
+
+poetry add --dev genson	# nice tool for generating JSON schemas from .json files
+
+# for example, from a previously saved checkpoint.json output...
+
+poetry run genson ~/checkpoint.json|jq '.' > tests/checkpoint_schema.json
