@@ -21,6 +21,8 @@ Part 1: Git Best Practices
 - Add README.md, SECURITY.md, CONTRIBUTING.md, LICENSE, CODEOWNERS, .gitignore files.  
 - Enable Branch Protection in GitHub.  
 
+For the following parts, the instructions for how the commands were installed and run is in docs/assignment3_readme.txt  
+
 Part 2: Prevent Secrets Leakage   
 
 Part 3: Scrub Old Secrets  
