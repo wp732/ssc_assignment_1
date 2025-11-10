@@ -26,7 +26,11 @@ def test_a1_logentry_fail():
     )
 
     if run_status is True:
-        match = re.search(r"^.*[Ee][Rr][Rr][Oo][Rr].*$", tty_out, re.MULTILINE)
+        match = re.search(
+            r'^.*[Ee][Rr][Rr][Oo][Rr].*$',
+            tty_out,
+            re.MULTILINE
+        )
         if match is not None:
             print(tty_out, flush=True)
         else:
