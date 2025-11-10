@@ -1,0 +1,10 @@
+[run]
+branch = True
+parallel = True
+concurrency = multiprocessing
+source = rekor/src,tests
+omit =
+	tests/run_test_wrappers.py
+
+#[report]
+#show_missing = True

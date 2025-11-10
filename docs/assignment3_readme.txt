@@ -72,6 +72,18 @@ poetry add --dev pytest-env
 [tool.pytest.ini_options]
 env = ["PYTHONPATH=."]
 
+# also create .coveragerc file in project root dir as follows.
+# note: the omit declaration is to exclude the non test_*.py
+#       utility wrapper file that the tests call for subprocess
+#       handling code.
+[run]
+branch = True
+parallel = True
+concurrency = multiprocessing
+source = rekor/src,tests
+omit =
+	tests/run_test_wrappers.py
+
 # Run the coverage test
 
 poetry run pytest --cov=. tests/

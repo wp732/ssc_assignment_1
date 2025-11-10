@@ -37,7 +37,6 @@ exclude = ["venv", ".venv", ".direnv", ".git", "setup.py"]
 
 [tool.pytest.ini_options]
 env = ["PYTHONPATH=."]
-#addopts = "--cov=rekor/src --cov-report=term-missing"
 
 [dependency-groups]
 dev = [
