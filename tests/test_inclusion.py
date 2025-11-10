@@ -30,7 +30,7 @@ def test_inclusion():
         [                                       # py_args (args to program)
             '--inclusion', log_index_str,
             '--artifact', artifact_path
-        ], True
+        ]
     )
 
     #print(f"tty_out: {tty_out}", flush=True)
