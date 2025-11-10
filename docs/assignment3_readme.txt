@@ -86,5 +86,11 @@ omit =
 
 # Run the coverage test
 
-poetry run pytest --cov=. tests/
+USE_COVERAGE_CMD=1 poetry run pytest --cov=. tests/
+
+# NOTE: The code in run_test_wrappers.py that called subprocess.run() will use coverage
+#       instead of python when USE_COVERAGE_CMD=1 in order to ensure that code called
+#       via subprocess gets coveraged because pytest --cov does not follow through
+#       subprocess calls.
+
 
