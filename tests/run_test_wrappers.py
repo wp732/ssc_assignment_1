@@ -25,17 +25,25 @@ def get_src_dir(service):
     return src_dir
 
 
-def validate_json_output(schema_path, py_path, py_args):
-    with open(schema_path, "r") as schema_file:
-        schema = json.load(schema_file)
+def run_py_program(py_path, py_args):
 
     result = subprocess.run(
         [ 'python', py_path, ] + py_args,
         capture_output=True,
         text=True
     )
-    output = result.stdout
-    data = json.loads(output)
+
+    return result.stdout
+
+
+def validate_py_program_json_output(schema_path, py_path, py_args):
+
+    std_out = run_py_program(py_path, py_args)
+
+    data = json.loads(std_out)
+
+    with open(schema_path, "r") as schema_file:
+        schema = json.load(schema_file)
 
     validate(instance=data, schema=schema)
 
@@ -44,7 +52,7 @@ def validate_json_output(schema_path, py_path, py_args):
 if __name__ == "__main__":
     test_dir = os.path.dirname(os.path.abspath(__file__))
     src_dir = f"{test_dir}/../rekor/src"
-    validate_json_output(
+    validate_py_program_json_output(
         f"{test_dir}/checkpoint_schema.json",
         f"{src_dir}/main.py",
         [ '-c' ]
