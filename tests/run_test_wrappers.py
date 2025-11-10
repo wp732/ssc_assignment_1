@@ -1,14 +1,19 @@
+"""Utility wrapper for running tests."""
+
 import json
 from jsonschema import validate
 import os
 import subprocess
 import sys
 
+
 def get_test_dir():
     return os.path.dirname(os.path.abspath(__file__))
 
+
 def get_data_dir():
     return f"{get_test_dir()}/../data"
+
 
 def get_src_dir(service):
     src_dir=None
@@ -18,6 +23,7 @@ def get_src_dir(service):
         case _:
             pass
     return src_dir
+
 
 def validate_json_output(schema_path, py_path, py_args):
     with open(schema_path, "r") as schema_file:
@@ -32,6 +38,7 @@ def validate_json_output(schema_path, py_path, py_args):
     data = json.loads(output)
 
     validate(instance=data, schema=schema)
+
 
 # Sample usage:
 if __name__ == "__main__":
