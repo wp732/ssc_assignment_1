@@ -1,7 +1,7 @@
 """Utility wrapper for running tests."""
 
 import json
-from jsonschema import validate
+from jsonschema import validate, ValidationError
 import os
 import subprocess
 import sys
@@ -96,7 +96,7 @@ def run_cmd_program(cmd_path, cmd_args, verbose=False):
     return (run_status, tty_out)
 
 
-def validate_py_program_json_output(schema_path, py_path, py_args):
+def validate_py_program_json_output(schema_path, py_path, py_args, fail=False):
 
     run_status, tty_out = run_py_program(py_path, py_args)
 
@@ -106,10 +106,25 @@ def validate_py_program_json_output(schema_path, py_path, py_args):
         with open(schema_path, "r") as schema_file:
             schema = json.load(schema_file)
 
-        validate(instance=data, schema=schema)
-        print(f"SUCCESS: output from {py_path} matches schema {schema_path}")
+        try:
+            validate(instance=data, schema=schema)
+            if fail is False:
+                print(
+                   f"\nSUCCESS: \
+                        output from {py_path} matches schema {schema_path}"
+                )
+            else:
+                pytest.fail(tty_out) # force fail when success on fail testing
+        except ValidationError as e:
+            if fail is False:
+                pytest.fail(str(e))
+            else:
+                print(str(e), flush=True) # show error proof on fail testing
     else:
-        pyest.fail(tty_out)
+        if fail is False:
+            pytest.fail(tty_out)
+        else:
+            print(tty_out, flush=True) # show error proof on fail testing
 
 
 # Sample usage:
