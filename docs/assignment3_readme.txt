@@ -66,3 +66,13 @@ poetry run pytest
 # Install pytest-cov
 
 poetry add --dev pytest-cov
+poetry add --dev pytest-env
+
+# add the following to pyproject.toml
+[tool.pytest.ini_options]
+env = ["PYTHONPATH=."]
+
+# Run the coverage test
+
+poetry run pytest --cov=. tests/
+
