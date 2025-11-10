@@ -40,9 +40,14 @@ def run_py_program(py_path, py_args, debug=False):
 
     run_status = True
 
+    if os.environ.get("USE_COVERAGE_CMD") == "1":
+        cmd_to_run = [ 'coverage', 'run', '--parallel-mode', py_path ]
+    else:
+        cmd_to_run = [ 'python', py_path, ]
+
     try:
         result = subprocess.run(
-            [ 'python', py_path, ] + py_args,
+            cmd_to_run + py_args,
             capture_output=True,
             check=True,
             text=True

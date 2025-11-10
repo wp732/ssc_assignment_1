@@ -62,3 +62,35 @@ poetry run genson ~/checkpoint.json|jq 'del(."$schema")' > tests/checkpoint_sche
 # Run pytest
 
 poetry run pytest
+
+# Install pytest-cov
+
+poetry add --dev pytest-cov
+poetry add --dev pytest-env
+
+# add the following to pyproject.toml
+[tool.pytest.ini_options]
+env = ["PYTHONPATH=."]
+
+# also create .coveragerc file in project root dir as follows.
+# note: the omit declaration is to exclude the non test_*.py
+#       utility wrapper file that the tests call for subprocess
+#       handling code.
+[run]
+branch = True
+parallel = True
+concurrency = multiprocessing
+source = rekor/src,tests
+omit =
+	tests/run_test_wrappers.py
+
+# Run the coverage test
+
+USE_COVERAGE_CMD=1 poetry run pytest --cov=. tests/
+
+# NOTE: The code in run_test_wrappers.py that called subprocess.run() will use coverage
+#       instead of python when USE_COVERAGE_CMD=1 in order to ensure that code called
+#       via subprocess gets coveraged because pytest --cov does not follow through
+#       subprocess calls.
+
+
