@@ -20,23 +20,14 @@ def test_a1_logentry_fail():
     run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                   # py_path (program to run)
         [                                       # py_args (args to program)
-            '--entry', "-1",
+            '--entry', "-1",                    # force bad index failure
         ],
         True                                    # enable verbose mode
     )
 
-    if run_status is False:
-        pytest.fail(tty_out)
-    else:
-        for match in re.finditer(
-            r'^.*[Ee][Rr][RR][Oo][Rr].*$',
-            tty_out,
-            re.MULTILINE
-        ):
-            match_group=match.group()
-            if match_group is None:
-                pytest.fail(tty_out)
-            else:
-                print(tty_out, flush=True)
+    if run_status is True:
+        match = re.search(r"^.*[Ee][Rr][Rr][Oo][Rr].*$", tty_out, re.MULTILINE)
+        if match is not None:
+            print(tty_out, flush=True)
         else:
-            pytest.fail(tty_out)
+            pytest.fail(tty_out)    # test ran clean so treat as failure
