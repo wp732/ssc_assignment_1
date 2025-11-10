@@ -35,13 +35,12 @@ def test_inclusion():
     if run_status is False:
         pytest.fail(tty_out)
     else:
-        for match in re.finditer(
-            r'^Offline root hash calculation for inclusion verified$',
+        match = re.search(
+            r'^.*[Ee][Rr][Rr][Oo][Rr].*$',
             tty_out,
             re.MULTILINE
-        ):
-            match_group=match.group()
-            if match_group is None:
-                pytest.fail(tty_out)
-            else:
-                print(tty_out, flush=True)
+        )
+        if match is None:
+            print(tty_out, flush=True)
+        else:
+            pytest.fail(tty_out)
