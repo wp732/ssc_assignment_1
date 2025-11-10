@@ -13,9 +13,10 @@ def test_a1_checkpoint_pass():
     test_dir = get_test_dir()
     src_dir = get_src_dir('rekor')
     validate_py_program_json_output(
-        f"{test_dir}/checkpoint_schema_good.json",  # output schema path
+        f"{test_dir}/checkpoint_schema_bad.json",   # output schema path
         f"{src_dir}/main.py",                       # py_path (program to run)
         [                                           # py_args (args to program) 
             '-c'
-        ]
+        ],
+        True                                        # show output
     )
