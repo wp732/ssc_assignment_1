@@ -1,4 +1,4 @@
-"""Test if rekor checkpoint ouput matches expected schema."""
+"""Test if rekor checkpoint ouput matches schema as per assignment 1."""
 
 import pytest
 
@@ -9,7 +9,7 @@ from run_test_wrappers import (
 )
 
 
-def test_checkpoint():
+def test_a1_checkpoint():
     test_dir = get_test_dir()
     src_dir = get_src_dir('rekor')
     validate_py_program_json_output(
