@@ -62,3 +62,7 @@ poetry run genson ~/checkpoint.json|jq 'del(."$schema")' > tests/checkpoint_sche
 # Run pytest
 
 poetry run pytest
+
+# Install pytest-cov
+
+poetry add --dev pytest-cov
