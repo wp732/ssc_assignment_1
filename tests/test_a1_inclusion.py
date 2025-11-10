@@ -1,4 +1,4 @@
-"""Test rekor inclusion."""
+"""Test rekor inclusion as per assignment 1."""
 
 import sys
 import json
