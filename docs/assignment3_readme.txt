@@ -57,4 +57,8 @@ poetry add --dev genson	# nice tool for generating JSON schemas from .json files
 
 # for example, from a previously saved checkpoint.json output...
 
-poetry run genson ~/checkpoint.json|jq '.' > tests/checkpoint_schema.json
+poetry run genson ~/checkpoint.json|jq 'del(."$schema")' > tests/checkpoint_schema.json
+
+# Run pytest
+
+poetry run pytest
