@@ -1,4 +1,4 @@
-"""Test rekor inclusion."""
+"""Test rekor inclusion success as per assignment 1 success."""
 
 import sys
 import json
@@ -13,7 +13,7 @@ from run_test_wrappers import (
 )
 
 
-def test_inclusion():
+def test_a1_inclusion_pass():
     test_dir = get_test_dir()
     src_dir = get_src_dir('rekor')
     data_dir = get_data_dir()
@@ -30,23 +30,19 @@ def test_inclusion():
         [                                       # py_args (args to program)
             '--inclusion', log_index_str,
             '--artifact', artifact_path
-        ]
+        ],
+        True                                    # enable verbose mode
     )
-
-    #print(f"tty_out: {tty_out}", flush=True)
 
     if run_status is False:
         pytest.fail(tty_out)
-        #pytest.fail("See stderr output above FAILURES section")
     else:
-        for match in re.finditer(
+        match = re.search(
             r'^Offline root hash calculation for inclusion verified$',
             tty_out,
             re.MULTILINE
-        ):
-            match_group=match.group()
-            #print(match_group, flush=True)
-            if match_group is None:
-                pytest.fail(tty_out)
-            else:
-                print(tty_out, flush=True)
+        )
+        if match is None:
+            pytest.fail(tty_out)
+        else:
+            print(tty_out, flush=True)

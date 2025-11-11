@@ -1,4 +1,4 @@
-"""Test rekor consistency."""
+"""Test success of rekor consistency as per assignment 1."""
 
 import sys
 import json
@@ -11,7 +11,7 @@ from run_test_wrappers import (
 )
 
 
-def test_consistency():
+def test_a1_consistency_pass():
     src_dir = get_src_dir('rekor')
 
     run_status, tty_out = run_py_program(

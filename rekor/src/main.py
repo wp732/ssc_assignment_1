@@ -404,7 +404,9 @@ def main():
     if args.inclusion:
         inclusion(args.inclusion, args.artifact, debug)
     if args.entry:
-        get_log_entry(args.entry, debug)
+        log_entry_dict = get_log_entry(args.entry, debug)
+        if log_entry_dict is not None:
+            print(json.dumps(log_entry_dict), flush=True)
     if args.consistency:
         if not args.tree_id:
             print("please specify tree id for prev checkpoint")
