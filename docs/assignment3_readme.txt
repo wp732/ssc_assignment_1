@@ -150,3 +150,9 @@ repos:
 
 # Note: The tty and pipeail stuff are need to force stdout/stderr to display to your terminal
 # while the scan script runs.
+
+# In order for the precommit to be activated do the following:
+
+pre-commit install
+pre-commit run --all-files
+
