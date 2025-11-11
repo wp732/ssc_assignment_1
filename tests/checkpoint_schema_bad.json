@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "inactiveShards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signedTreeHead": {
+            "type": "integer"
+          },
+          "treeID": {
+            "type": "string"
+          },
+          "treeSize": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "signedTreeHead",
+          "treeID",
+          "treeSize"
+        ]
+      }
+    },
+    "signedTreeHead": {
+      "type": "string"
+    },
+    "treeID": {
+      "type": "string"
+    },
+    "treeSize": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "inactiveShards",
+    "signedTreeHead",
+    "treeID",
+    "treeSize"
+  ]
+}
