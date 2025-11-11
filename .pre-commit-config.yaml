@@ -5,5 +5,5 @@ repos:
         name: Running Trufflehog scan
         entry: bash
         language: system
-        pass_filenames: false   # we’ll run the script on commit, not per file
+        pass_filenames: false
         args: ["-c", "set -o pipefail; ~/.thog/scan_local_repo.sh | tee /dev/tty"]
