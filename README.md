@@ -25,7 +25,7 @@ For the following parts, the instructions for how the commands were installed an
 
 Part 2: Prevent Secrets Leakage   
 
-Part 3: Scrub Old Secrets  
+Part 3: Scrub Old Secrets ( see part3-writeup.txt submitted to Brightspace ) 
 
 Part 4: Build System Configuration  
 
