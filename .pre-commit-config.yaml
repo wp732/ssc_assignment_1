@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: trufflehog_scan
+        name: Running Trufflehog scan
+        entry: bash
+        language: system
+        pass_filenames: false
+        args: ["-c", "set -o pipefail; ~/.thog/scan_local_repo.sh | tee /dev/tty"]
