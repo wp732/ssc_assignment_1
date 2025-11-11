@@ -1,6 +1,6 @@
 #!/bin/bash
 
-which dockerx > /dev/null 2>&1
+which docker > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo ""
     echo "ERROR: docker not installed! Install docker and run trufflehog/bin/install.sh first."
