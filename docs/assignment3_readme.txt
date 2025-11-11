@@ -103,6 +103,43 @@ USE_COVERAGE_CMD=1 poetry run pytest --cov=. tests/
 
 # NOTE: For ease of use just run my bin/run_coverage_tests.sh script.
 
- 
+# Setup for pre-commit and secrets scanning.
 
+# I saved this for last as I found that Trufflehog take forever to run so
+# doing this prior I would never have finished on time.
 
+# Install pre-commit
+
+sudo apt install pre-commit
+
+# Trufflehog
+
+# I built an entire ecosystem around this in order to ensure a trusted install of it
+# and also because it is very complex to run.
+# In the trufflehog/bin directory you will find all the scripts.
+# There is some additional documentation in the trufflehog/docs directory.
+# The install.sh script will safely install Trufflehog as a docker container, but
+# that means you need to have docker preinstalled on tour system.
+# Instructions for installing docker vary between Linux distributions, and I am not
+# sure how you would do it on macOS (or even get these scripts working as zsh?), and
+# I do not work on Windows systems, so good luck with that!
+# The install.sh uses the get_digest.sh to get correct container disgest to fetch
+# from DockerHub for your architecture. The is_version_installed.sh script is called
+# by the scan_local_repo.sh script (which gets invoked via the pre-commit hook) at
+# run time to check if you ran the install.sh first. The scan_local_repo.sh is
+# what calls the dockerized version of Trufflehog. The script determins your git
+# repo root and volume mounts it read only to the container and then runs the scan.
+# I do have a security concern about the fact the container runs as root user. In the
+# future (given more time) I could build it from source and make it run as non-root. 
+# The .pre-commit-config.yaml would look like this:
+repos:
+  - repo: local
+    hooks:
+      - id: trufflehog_scan
+        name: Running Trufflehog scan
+        entry: bash
+        language: system
+        pass_filenames: false   
+        args: ["-c", "set -o pipefail; ../scan_local_repo.sh | tee /dev/tty"]
+# The tty and pipeail stuff are need to force stdout/stderr to display to your terminal
+# while the scan script runs.
