@@ -1,4 +1,4 @@
-"""Test failure of rekor consistency as per assignment 1."""
+"""Test failure of rekor consistency by bad root hash as per assignment 1."""
 
 import sys
 import json
@@ -11,18 +11,20 @@ from run_test_wrappers import (
 )
 
 
-def test_a1_consistency_fail():
+def test_a1_consistency_root_hash_fail():
+
     src_dir = get_src_dir('rekor')
 
     run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                    # py_path (program to run)
         [                                        # py_args (args to program)
             '--consistency',
-            #'--tree-id', '1193050959916656506', # was good tree-id
-            '--tree-id', '-1',                   # force bad tree-id
-            '--tree-size', '479325266',
+            '--tree-id', '1193050959916656506',
+            '--tree-size', '479325266',         # was good tree-size
             '--root-hash',
-            'cec16c9b824001c21439320f882a661ce1d84ba93fa29edc2340725e9804f0fd'
+            #'cec16c9b824001c21439320f882a661ce1d84ba93fa29edc2340725e9804f0fd'
+            # above was goot root hash, here is a bogus one 
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         ]
     )
 

@@ -63,6 +63,14 @@ poetry run genson ~/checkpoint.json|jq 'del(."$schema")' > tests/checkpoint_sche
 
 poetry run pytest
 
+# or for ease of use run my bin/run_pyetsts.sh script. Here are some examples:
+
+bin/run_pyetsts.sh	# run all tests
+
+bin/run_pyetsts.sh-s  # run all tests with stdout/stderr output added
+ 
+bin/run_pyetsts.sh -s -f test_a1_consistency_tree_size_fail.py	# runs only this test with stdout/stderr output added
+
 # Install pytest-cov
 
 poetry add --dev pytest-cov
@@ -92,5 +100,9 @@ USE_COVERAGE_CMD=1 poetry run pytest --cov=. tests/
 #       instead of python when USE_COVERAGE_CMD=1 in order to ensure that code called
 #       via subprocess gets coveraged because pytest --cov does not follow through
 #       subprocess calls.
+
+# NOTE: For ease of use just run my bin/run_coverage_tests.sh script.
+
+ 
 
 
