@@ -13,7 +13,6 @@ usage() {
 
 show_output=""
 py_file=""
-service=""
 while [ $# -ne 0 ]; do
     case $1 in
         -verbose )
@@ -35,4 +34,4 @@ done
 
 cd ${thisdir}/..
 
-poetry run pytest $show_output tests/
+poetry run pytest $show_output tests/${py_file}

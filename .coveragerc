@@ -2,9 +2,9 @@
 branch = True
 parallel = True
 concurrency = multiprocessing
-source = rekor/src,rekor/tests
+source = packages/wp732-rekor-tools/src/wp732/rekor_tools,tests
 omit =
-	rekor/tests/run_test_wrappers.py
+	tests/run_test_wrappers.py
 
 #[report]
 #show_missing = True
