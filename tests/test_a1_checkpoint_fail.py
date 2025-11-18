@@ -11,7 +11,7 @@ from run_test_wrappers import (
 
 def test_a1_checkpoint_pass():
     test_dir = get_test_dir()
-    src_dir = get_src_dir('rekor')
+    src_dir = get_src_dir('wp732-rekor-tools')
     validate_py_program_json_output(
         f"{test_dir}/checkpoint_schema_bad.json",   # output schema path
         f"{src_dir}/main.py",                       # py_path (program to run)

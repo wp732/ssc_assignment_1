@@ -39,12 +39,13 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ -z "${service}" ]; then
-    echo "ERROR: must supply -service <service name>" >&2
-    exit 255
-fi
+#if [ -z "${service}" ]; then
+#    echo "ERROR: must supply -service <service name>" >&2
+#    exit 255
+#fi
 
 cd ${thisdir}/..
 
 set -x
-poetry run pytest $show_output ${service}/tests/${py_file}
+#poetry run pytest $show_output ${service}/tests/${py_file}
+poetry run pytest $show_output tests/

@@ -30,3 +30,5 @@ Part 3: Scrub Old Secrets ( see part3-writeup.txt submitted to Brightspace )
 Part 4: Build System Configuration  
 
 Part 5: Testing and Coverage   
+
+# SSC assignment 4 (package publishing and SBOMs)  

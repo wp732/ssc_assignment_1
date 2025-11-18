@@ -23,6 +23,9 @@ if [ -z "${service}" ]; then
 fi
 
 cd ${thisdir}/..
+cd `find $service -name pyproject.toml -exec dirname {} \;`
 
 set -x
+pwd
+#USE_COVERAGE_CMD=1 poetry run pytest --cov=. $report_missing ${service}/tests/
 USE_COVERAGE_CMD=1 poetry run pytest --cov=. $report_missing ${service}/tests/

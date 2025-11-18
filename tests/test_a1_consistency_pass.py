@@ -12,7 +12,7 @@ from run_test_wrappers import (
 
 
 def test_a1_consistency_pass():
-    src_dir = get_src_dir('rekor')
+    src_dir = get_src_dir('wp732-rekor-tools')
 
     run_status, tty_out = run_py_program(
         f"{src_dir}/main.py",                   # py_path (program to run)
