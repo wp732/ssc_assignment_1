@@ -25,7 +25,9 @@ def get_packages_dir():
 
 
 def get_src_dir(package_name):
-    return f"{get_packages_dir()}/{package_name}/src"
+    org_dir, service_dir = package_name.split("-", 1)
+    service_dir = service_dir.replace("-","_")
+    return f"{get_packages_dir()}/{package_name}/src/{org_dir}/{service_dir}"
 
 
 def get_bin_dir():
