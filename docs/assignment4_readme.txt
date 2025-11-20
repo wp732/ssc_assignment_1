@@ -29,7 +29,14 @@
 #         symlink), so annoying as it is, you will need to maintain a license file per
 #         package.
 
-# NOTE 5: The screenshot in the assignment 4 pdf showed an example of the Rekor commands
+# NOTE 5: The symlink of packages/wp732-rekor-tools/README.md to
+#         packages/wp732-rekor-tools/src/wp732/rekor_tools/README.md was done because
+#         the only way to get the README.md to show up in the whl file but still be
+#         found by PyPi when published was to keep it in the source level directory
+#         and specify a relative path to it in the pyproject.toml, but I also wanted
+#         github to display it at the top level of the package so the symlink was the solution.
+
+# NOTE 6: The screenshot in the assignment 4 pdf showed an example of the Rekor commands
 #         being run via a wrapper script as opposed to via python main.py so I wanted to
 #         include a wrapper script but wasn't sure if making a bash wrapper was wise
 #         since that assumes bash is available on target systems. I was considering using
@@ -69,4 +76,10 @@
 # Once the build completes, there will be a dist/ directory with the build package to be
 # published.
 
+# To do a local test of the package using a non-poetry python venv pip install, I created
+# a python venv and then activated it and then ran the following command (where
+# <repo path> was the directory path to the root of my local cloned git repo):
 
+pip install --force-reinstall <repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.0-py3-none-any.whl
+
+# The --force-reinstall was needed to re-test mutliple times.
