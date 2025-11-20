@@ -7,14 +7,14 @@ import json
 from pathlib import Path
 import argparse
 import requests
-from util import (
+from wp732.rekor_tools.util import (
     get_nested_field_by_name,
     base64_decode,
     base64_decode_as_dict,
     extract_public_key,
     verify_artifact_signature,
 )
-from merkle_proof import (
+from wp732.rekor_tools.merkle_proof import (
     DefaultHasher,
     verify_consistency,
     verify_inclusion,
