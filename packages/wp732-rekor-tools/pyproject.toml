@@ -6,7 +6,7 @@ license = "Apache-2.0"
 readme = "README.md"
 authors = ["Warren Pfeffer <wp732@nyu.edu>"]
 include = ["LICENSE"]
-exclude = ["**/.gitignore"]
+exclude = ["**/.gitignore","bin"]
 
 [[tool.poetry.packages]]
 include = "wp732"

@@ -25,3 +25,17 @@ options:
   -e ENTRY, --entry ENTRY  
                         Get Rekor log entry by log index Usage: --entry 126574567  
   
+# Examples  
+
+wp732_rekor_tool \  
+    --checkpoint  
+    
+wp732_rekor_tool \  
+    --inclusion <log index from .rekorBundle.Payload.logIndex of artifact bundle json> \  
+    --artifact <file path to artifact that was cosigned>   
+
+wp732_rekor_tool \  
+    --consistency \  
+    --tree-id <rekor tree id from .treeID of artifact bundle json> \  
+    --tree-size <rekor tree size from .treeSize of artifact bundle json> \  
+    --root-hash <rekor root hash from .rootHash of artifact bundle json>  
