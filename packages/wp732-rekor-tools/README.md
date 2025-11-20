@@ -1,0 +1,23 @@
+usage: wp732_rekor_tool [-h] [-d] [-c] [--inclusion INCLUSION] [--artifact ARTIFACT] [--consistency]  
+                        [--tree-id TREE_ID] [--tree-size TREE_SIZE] [--root-hash ROOT_HASH] [-e ENTRY]  
+  
+Rekor Verifier  
+  
+options:  
+  -h, --help            show this help message and exit  
+  -d, --debug           Debug mode  
+  -c, --checkpoint      Obtain latest checkpoint from Rekor Server public instance. When used with -d  
+                        also saves the checkpoint to ~/checkpoint.json  
+  --inclusion INCLUSION  
+                        Verify inclusion of an entry in the Rekor Transparency Log using log index and  
+                        artifact filename. Usage: --inclusion 126574567  
+  --artifact ARTIFACT   Artifact filepath for verifying signature  
+  --consistency         Verify consistency of a given checkpoint with the latest checkpoint.  
+  --tree-id TREE_ID     Tree ID for consistency proof  
+  --tree-size TREE_SIZE  
+                        Tree size for consistency proof  
+  --root-hash ROOT_HASH  
+                        Root hash for consistency proof  
+  -e ENTRY, --entry ENTRY  
+                        Get Rekor log entry by log index Usage: --entry 126574567  
+  

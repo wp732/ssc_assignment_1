@@ -346,7 +346,8 @@ def main():
         "-c",
         "--checkpoint",
         help="Obtain latest checkpoint\
-            from Rekor Server public instance",
+            from Rekor Server public instance. When used with -d also saves \
+            the checkpoint to ~/checkpoint.json",
         required=False,
         action="store_true",
     )
