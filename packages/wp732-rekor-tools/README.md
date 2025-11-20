@@ -1,3 +1,7 @@
+# A tool for verifying artifacts logged to Rekor  
+
+You can find out more about this tool and the motivation behind it at https://github.com/wp732/ssc_assignment_1  
+
 usage: wp732_rekor_tool [-h] [-d] [-c] [--inclusion INCLUSION] [--artifact ARTIFACT] [--consistency]  
                         [--tree-id TREE_ID] [--tree-size TREE_SIZE] [--root-hash ROOT_HASH] [-e ENTRY]  
   
