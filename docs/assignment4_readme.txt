@@ -130,3 +130,11 @@
 	pip install wp732-rekor-tools
 
 # After the install complete you can simply run the tool (for example: wp732_rekor_tool -h)
+
+## Part 2: SBOM generation and package attestation
+
+# Install Cyclonedx software to generate SBOM
+
+	poetry add --dev cyclonedx-bom	# run where repo top level pyproject.toml resides
+
+
