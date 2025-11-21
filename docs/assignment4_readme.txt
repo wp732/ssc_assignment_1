@@ -133,8 +133,38 @@
 
 ## Part 2: SBOM generation and package attestation
 
-# Install Cyclonedx software to generate SBOM
+# First cd to top level of the repo so the following commands are acting on the top level
+# pyproject.toml file.
+
+# Install CycloneDX software to generate SBOM
 
 	poetry add --dev cyclonedx-bom	# run where repo top level pyproject.toml resides
 
+# Install plugin to enable poetry to generate a requirements.txt file
+
+	poetry self add poetry-plugin-export
+
+# Generate a requirements.txt
+# NOTE: I could not find a way with the version of cyclonedx-bom installed (7.2.1) to instruct
+#       it to only create an SBOM pertaining to the package level pyproject.toml declarations.
+#       It seemed to only be designed to handle repos structured to use a single pyproject.toml
+#       and not the bifurcation approach I took as explained above. The workaround I found was
+#       to configure poetry to generate a transient requirements.txt file from the package
+#       level pyproject.toml and use that to create the scoped SBOM I desired. What follows
+#       are the steps to do that:
+
+	pushd packages/wp732/	# move from repo top level to package level
+	poetry export -f requirements.txt --output requirements.txt
+
+# Add a .gitignore as we don't care about preserving these package level files in GitHub
+
+	cat<<EOF > .gitignore
+	requirements.txt
+	poetry.lock
+	EOF
+
+# Generate the SBOM from the transient requirements.txt
+
+	popd	# go back to top level of repo
+	poetry run cyclonedx-py requirements packages/wp732-rekor-tools/requirements.txt --of JSON -o ~/wp732-rekor-tools_sbom.json
 
