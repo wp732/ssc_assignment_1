@@ -36,7 +36,15 @@
 #         and specify a relative path to it in the pyproject.toml, but I also wanted
 #         github to display it at the top level of the package so the symlink was the solution.
 
-# NOTE 6: The screenshot in the assignment 4 pdf showed an example of the Rekor commands
+# NOTE 6: Prior to directory structure refactoring, pytest-cov was yielding 80%, but
+#         after refactoring I was only getting 50% because merkle_proof.py and utils.py
+#         were yielding 0% coverage! I discovered I needed to change PYTHONPATH from using
+#         just dot (".") to the following in the top level pyproject.toml:
+
+			[tool.pytest.ini_options]
+			env = ["PYTHONPATH=packages/wp732-rekor-tools/src:tests"]
+
+# NOTE 7: The screenshot in the assignment 4 pdf showed an example of the Rekor commands
 #         being run via a wrapper script as opposed to via python main.py so I wanted to
 #         include a wrapper script but wasn't sure if making a bash wrapper was wise
 #         since that assumes bash is available on target systems. I was considering using

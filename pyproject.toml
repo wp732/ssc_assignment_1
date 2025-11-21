@@ -38,4 +38,4 @@ root = ["packages/*/src", "tests"]
 exclude = ["venv", ".venv", ".direnv", ".git", "setup.py"]
 
 [tool.pytest.ini_options]
-env = ["PYTHONPATH=."]
+env = ["PYTHONPATH=packages/wp732-rekor-tools/src:tests"]

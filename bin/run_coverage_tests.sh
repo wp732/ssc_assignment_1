@@ -14,5 +14,4 @@ done
 
 cd ${thisdir}/..
 
-set -x
 USE_COVERAGE_CMD=1 poetry run pytest --cov=. $report_missing tests/
