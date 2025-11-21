@@ -74,6 +74,18 @@
 # Then from my venv activated environment I could run wp732_rekor_tool -h
 # or wp732_rekor_tool -c and it all worked. Very cool :-)
 
+# Note 8: In order to not have to entry very long PyPi token during each poetry publish
+#         Add to securly store it locally, I developed scripts to install and use
+#         keepassxc as a local password manager. Note that keepassxc uses the terms
+#         username and password for key and value to be stored in the database.
+#         Also note that for each script you will be promted to enter a database password.
+
+			bin/keepass_create_db.sh			# Install keepassxc and create its database
+
+			bin/keepass_add_pair.sh pypitok		# Create key pypitok and prompt you for value
+
+			bin/keepass_get_value.sh pypitok	# Get back the token for key pypitok
+
 # So after all this setup work, here were the steps to build and publish:
 
 # Building the package
@@ -91,3 +103,4 @@
 pip install --force-reinstall <repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.0-py3-none-any.whl
 
 # The --force-reinstall was needed to re-test mutliple times.
+
