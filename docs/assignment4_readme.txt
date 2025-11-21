@@ -1,3 +1,5 @@
+## Part 1: Publishing packages to PyPi via poetry publish
+
 # NOTE 1: The directory structure of the repo has changes from assignment3.
 #         Since the location of the rekor/src files where moved to
 #         packages/wp732-rekor-tools/src/wp732/rekor_tools so that they can
@@ -75,16 +77,19 @@
 # or wp732_rekor_tool -c and it all worked. Very cool :-)
 
 # Note 8: In order to not have to entry very long PyPi token during each poetry publish
-#         Add to securly store it locally, I developed scripts to install and use
+#         Add to securely store it locally, I developed scripts to install and use
 #         keepassxc as a local password manager. Note that keepassxc uses the terms
 #         username and password for key and value to be stored in the database.
-#         Also note that for each script you will be promted to enter a database password.
+#         Also note that for each script you will be prompted to enter a database password.
 
 			bin/keepass_create_db.sh			# Install keepassxc and create its database
 
 			bin/keepass_add_pair.sh pypitok		# Create key pypitok and prompt you for value
 
 			bin/keepass_get_value.sh pypitok	# Get back the token for key pypitok
+
+# NOTE 9: I created a wrapper script for poetry publish that fetches the token into
+#         the environment variable.
 
 # So after all this setup work, here were the steps to build and publish:
 
@@ -100,7 +105,28 @@
 # a python venv and then activated it and then ran the following command (where
 # <repo path> was the directory path to the root of my local cloned git repo):
 
-pip install --force-reinstall <repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.0-py3-none-any.whl
+	pip install \
+		--force-reinstall \
+		<repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.0-py3-none-any.whl
 
-# The --force-reinstall was needed to re-test mutliple times.
+# The --force-reinstall was needed to re-test multiple times.
 
+# Publishing
+
+# From the packages/wp732-rekor-tools directory I ran the following:
+
+	../../bin/publish.sh 
+	Enter password to unlock /home/user/.config/keepass/myvault.kdbx: 
+
+	Publishing wp732-rekor-tools (4.0.0) to PyPI
+	 - Uploading wp732_rekor_tools-4.0.0-py3-none-any.whl 100%
+	 - Uploading wp732_rekor_tools-4.0.0.tar.gz 100%
+
+# Testing
+
+# Now that the package has been published, you can simply pip install it to any local python
+# environment (be it venv or not). Just run the following:
+
+	pip install wp732-rekor-tools
+
+# After the install complete you can simply run the tool (for example: wp732_rekor_tool -h)
