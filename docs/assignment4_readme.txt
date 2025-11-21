@@ -157,6 +157,7 @@
 	poetry export -f requirements.txt --output requirements.txt
 
 # Add a .gitignore as we don't care about preserving these package level files in GitHub
+# since we already preserve the package level pyproject.toml.
 
 	cat<<EOF > .gitignore
 	requirements.txt
@@ -166,5 +167,6 @@
 # Generate the SBOM from the transient requirements.txt
 
 	popd	# go back to top level of repo
-	poetry run cyclonedx-py requirements packages/wp732-rekor-tools/requirements.txt --of JSON -o ~/wp732-rekor-tools_sbom.json
+	poetry run cyclonedx-py requirements packages/wp732-rekor-tools/requirements.txt --of JSON -o packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
+	git add packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
 

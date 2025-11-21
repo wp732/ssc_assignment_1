@@ -1,3 +1,14 @@
+# Sign the data blob 
+
+# Note: First login to GitHub via a web browser on the same computer
+#       that you will run the cosign sign-blob command on. When it runs,
+#       it will authenticate you via OIDC to GitHub.
+
+cd data/
+cosign sign-blob artifact.md --bundle artifact.bundle
+
+# Test funcitonality of rekor verification code
+
 cd rekor/src/
 
 # create checkpoint (when run with -d it creates ~/checkpoint.json)
