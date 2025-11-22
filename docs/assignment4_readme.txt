@@ -131,6 +131,7 @@
 
 # After the install complete you can simply run the tool (for example: wp732_rekor_tool -h)
 
+
 ## Part 2: SBOM generation and package attestation
 
 # First cd to top level of the repo so the following commands are acting on the top level
@@ -140,33 +141,19 @@
 
 	poetry add --dev cyclonedx-bom	# run where repo top level pyproject.toml resides
 
-# Install plugin to enable poetry to generate a requirements.txt file
+# I have created a wrapper script to run the command to create the SBOM, because it requires
+# an extra step to create a temporary symlink of poetry.lock in the packages/wp732-rekor-tools directory
+# back to the poetry.lock file at the top level of the repo (this is due to the bifurcation
+# approach I took regarding pyproject.toml files as previously mentioned. cd to the top level
+# repo dir and run the following:
 
-	poetry self add poetry-plugin-export
+	bin/sbom_create.sh
 
-# Generate a requirements.txt
-# NOTE: I could not find a way with the version of cyclonedx-bom installed (7.2.1) to instruct
-#       it to only create an SBOM pertaining to the package level pyproject.toml declarations.
-#       It seemed to only be designed to handle repos structured to use a single pyproject.toml
-#       and not the bifurcation approach I took as explained above. The workaround I found was
-#       to configure poetry to generate a transient requirements.txt file from the package
-#       level pyproject.toml and use that to create the scoped SBOM I desired. What follows
-#       are the steps to do that:
+# Create whl attestation that gets logged to Rekor
 
-	pushd packages/wp732/	# move from repo top level to package level
-	poetry export -f requirements.txt --output requirements.txt
+	bin/whl_attest.sh
 
-# Add a .gitignore as we don't care about preserving these package level files in GitHub
-# since we already preserve the package level pyproject.toml.
-
-	cat<<EOF > .gitignore
-	requirements.txt
-	poetry.lock
-	EOF
-
-# Generate the SBOM from the transient requirements.txt
-
-	popd	# go back to top level of repo
-	poetry run cyclonedx-py requirements packages/wp732-rekor-tools/requirements.txt --of JSON -o packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
-	git add packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
-
+# Note: When I ran this command I was suprised about the huge stream of encoded output that
+#       was produced to the terminal (even though I included --output-attestation and --bundle
+#       parameters)? I subsequently added code to redirect stdout of the commad to
+#       ${HOME}/whl_attest.out to prevent this in the future.
