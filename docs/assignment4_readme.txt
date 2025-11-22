@@ -36,7 +36,7 @@
 #         the only way to get the README.md to show up in the whl file but still be
 #         found by PyPi when published was to keep it in the source level directory
 #         and specify a relative path to it in the pyproject.toml, but I also wanted
-#         github to display it at the top level of the package so the symlink was the solution.
+#         GitHub to display it at the top level of the package so the symlink was the solution.
 
 # NOTE 6: Prior to directory structure refactoring, pytest-cov was yielding 80%, but
 #         after refactoring I was only getting 50% because merkle_proof.py and utils.py
@@ -153,7 +153,7 @@
 
 	bin/whl_attest.sh
 
-# Note: When I ran this command I was suprised about the huge stream of encoded output that
+# Note: When I ran this command I was surprised about the huge stream of encoded output that
 #       was produced to the terminal (even though I included --output-attestation and --bundle
-#       parameters)? I subsequently added code to redirect stdout of the commad to
+#       parameters)? I subsequently added code to redirect stdout of the command to
 #       ${HOME}/whl_attest.out to prevent this in the future.

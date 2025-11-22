@@ -17,7 +17,8 @@ echo ""
 
 set -x
 cosign attest-blob \
-	--bundle ${dist_dir}/${pkg_name}_attest.bundle \
+	--bundle ${dist_dir}/sbom-attestation.bundle \
 	--output-attestation ${HOME}/${pkg_name}_attest.json \
 	--predicate ${dist_dir}/cyclonedx-sbom.json \
+	--type cyclonedx \
 	${dist_dir}/wp732_rekor_tools-4.0.0-py3-none-any.whl > ${HOME}/whl_attest.out
