@@ -19,7 +19,7 @@ The file rekor/src/initial_py_files.tar.gz is a save of original *.py files used
 The *.py files that exist in rekor/src at time of assignment 2 submission are the final modified files.  
 The *.final.txt logs are the outputs of the *.py cleaned files.  
 
-# SSC assignment 3 (git project best practices; secrets scanning and backout; build system config; testing and code coverage)  
+# SSC assignment 3 (git project best practices; secrets scanning and back-out; build system config; testing and code coverage)  
 
 The release entitled "v3.0.0" was the snapshot of this assignment  
 
@@ -39,4 +39,8 @@ Part 5: Testing and Coverage
 
 # SSC assignment 4 (package publishing and SBOMs)  
 
-The instructions for how the commands were installed and run are in docs/assignment4_readme.txt  
+The instructions for how the commands were installed and run for following are in docs/assignment4_readme.txt  
+
+Part 1: Publishing packages to PyPi via poetry publish  
+
+Part 2: SBOM generation and package attestation  
