@@ -1,4 +1,6 @@
-## Part 1: Publishing packages to PyPi via poetry publish
+# Before diving in to the details of execution steps for Parts 1 and 2 of
+# assignment 4, it is important to review the following notes to consider
+# their impact on the assignment tasks at hand:
 
 # NOTE 1: The directory structure of the repo has changes from assignment3.
 #         Since the location of the rekor/src files where moved to
@@ -91,12 +93,38 @@
 # NOTE 9: I created a wrapper script for poetry publish that fetches the token into
 #         the environment variable.
 
+# Note 10: The assignment 4 pdf rubric has Part 1 as Packaging and Publishing Python Code
+#          and Part 2 as Generating and Attesting an SBOM. As it turns out, in order for
+#          the SBOM to be included in the built whl file, you have to generate it first,
+#          so the rubric should have made that more clear that SBOM created it really
+#          a step in Part 1 and that Part 2 should only be about attestation verification IMO.
+#          In order to ensure that the SBOM exists apriori to the build step, the sbom_create.sh
+#          script (which I will discuss below) gets called from the build.sh script I created
+#          to build the package. This enables the SBOM to be injected into the built whl. 
+
 # So after all this setup work, here were the steps to build and publish:
+
+## Part 1: Publishing packages to PyPi via poetry publish (with SBOM inclusion)
+
+# Installing SBOM tooling
+
+# First cd to top level of the repo so the following commands are acting on the top level
+# pyproject.toml file.
+
+# Install CycloneDX software to generate SBOM
+
+	poetry add --dev cyclonedx-bom	# run where repo top level pyproject.toml resides
+
+# I have created a wrapper script bin/sbom_create.sh to run the command to create the SBOM, because it requires
+# an extra step to create a temporary symlink of poetry.lock in the packages/wp732-rekor-tools directory
+# back to the poetry.lock file at the top level of the repo (this is due to the bifurcation
+# approach I took regarding pyproject.toml files as previously mentioned. This script gets called
+# by the build wrapper script bin/build.sh so that the SBOM reflects the package level pyproject.toml
+# dependencies as they are just prior to the package build.
 
 # Building the package
 
-	cd packages/wp732-rekor-tools
-	poetry build
+	bin/build.sh
 
 # Once the build completes, there will be a dist/ directory with the build package to be
 # published.
@@ -107,53 +135,41 @@
 
 	pip install \
 		--force-reinstall \
-		<repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.0-py3-none-any.whl
+		<repo path>/packages/wp732-rekor-tools/dist/wp732_rekor_tools-4.0.1-py3-none-any.whl
 
 # The --force-reinstall was needed to re-test multiple times.
 
 # Publishing
 
-# From the packages/wp732-rekor-tools directory I ran the following:
+# I also created a wrapper script for poetry publish that fetches the PyPi api token from keepassxc
+# (see NOTE 6 above). To publish the built package to PyPi simply run the following (it will prompt
+# you that you should first be logged into GitHub via web browser in order to do OIDC verification
+# and it will also prompt you for password to unlock the keepassxc secret store): 
 
-	../../bin/publish.sh 
-	Enter password to unlock /home/user/.config/keepass/myvault.kdbx: 
-
-	Publishing wp732-rekor-tools (4.0.0) to PyPI
-	 - Uploading wp732_rekor_tools-4.0.0-py3-none-any.whl 100%
-	 - Uploading wp732_rekor_tools-4.0.0.tar.gz 100%
+	bin/publish.sh 
 
 # Testing
 
 # Now that the package has been published, you can simply pip install it to any local python
 # environment (be it venv or not). Just run the following:
 
-	pip install wp732-rekor-tools
+	pip install wp732-rekor-tools --upgrade
 
 # After the install complete you can simply run the tool (for example: wp732_rekor_tool -h)
 
 
-## Part 2: SBOM generation and package attestation
-
-# First cd to top level of the repo so the following commands are acting on the top level
-# pyproject.toml file.
-
-# Install CycloneDX software to generate SBOM
-
-	poetry add --dev cyclonedx-bom	# run where repo top level pyproject.toml resides
-
-# I have created a wrapper script to run the command to create the SBOM, because it requires
-# an extra step to create a temporary symlink of poetry.lock in the packages/wp732-rekor-tools directory
-# back to the poetry.lock file at the top level of the repo (this is due to the bifurcation
-# approach I took regarding pyproject.toml files as previously mentioned. cd to the top level
-# repo dir and run the following:
-
-	bin/sbom_create.sh
+## Part 2: SBOM package attestation (creation and verification)
 
 # Create whl attestation that gets logged to Rekor
 
-	bin/whl_attest.sh
+	bin/whl_create_attest.sh
 
 # Note: When I ran this command I was surprised about the huge stream of encoded output that
 #       was produced to the terminal (even though I included --output-attestation and --bundle
 #       parameters)? I subsequently added code to redirect stdout of the command to
 #       ${HOME}/whl_attest.out to prevent this in the future.
+
+# Verify whl via attestation
+
+	bin/whLverify_attest.sh
+

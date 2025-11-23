@@ -7,6 +7,7 @@ pkg_name="wp732-rekor-tools"
 pkg_dir=${proj_dir}/packages/${pkg_name}
 
 dist_dir=${pkg_dir}/dist
+mkdir -p $dist_dir
 
 # Create a temporary symlink to poetry.lock
 # (cyclonedx-py won't work for monorepo poetry packaging without this).

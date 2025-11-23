@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "wp732-rekor-tools"
-version = "4.0.0"
+version = "4.0.1"
 description = "Tools to make using Rekor eaiser"
 license = "Apache-2.0"
 readme = "src/wp732/rekor_tools/README.md"
 authors = ["Warren Pfeffer <wp732@nyu.edu>"]
-include = [
-	"LICENSE",
-]
 exclude = ["**/.gitignore","bin"]
+include = [
+    { path = "dist/cyclonedx-sbom.json", format = ["wheel"] }
+]
 
 [[tool.poetry.packages]]
 include = "wp732"
