@@ -15,7 +15,7 @@ from run_test_wrappers import (
 
 def test_inclusion():
     test_dir = get_test_dir()
-    src_dir = get_src_dir('rekor')
+    src_dir = get_src_dir('wp732-rekor-tools')
     data_dir = get_data_dir()
     artifact_path = f"{data_dir}/artifact.md"
     artifact_bundle_path = f"{data_dir}/artifact.bundle"

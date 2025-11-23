@@ -2,22 +2,36 @@
 
 thisdir=`(cd \`dirname $0\` > /dev/null 2>&1; pwd)`
 
+usage() {
+	echo ""
+	echo "usage: $0 [-verbose] [-file <py file path>]"
+	echo ""
+	echo "       -verbose                # Force stdout/stderr to tty"
+	echo "       -file <py file path>    # Path to .py file to act on (default all files)"
+	echo ""
+}
+
 show_output=""
 py_file=""
 while [ $# -ne 0 ]; do
     case $1 in
-        -s )
+        -verbose )
             show_output="-s"
             ;;
-        -f )
+        -file )
 			shift
             py_file=$1
             ;;
+		-h )
+			usage
+			;;
+		* )
+			usage
+			;;
     esac
     shift
 done
 
 cd ${thisdir}/..
 
-set -x
 poetry run pytest $show_output tests/${py_file}

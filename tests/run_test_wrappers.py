@@ -12,28 +12,26 @@ def get_test_dir():
     return os.path.dirname(os.path.abspath(__file__))
 
 
+def get_repo_dir():
+    return f"{get_test_dir()}/.."
+
+
 def get_data_dir():
-    return f"{get_test_dir()}/../data"
+    return f"{get_repo_dir()}/data"
 
 
-def get_src_dir(service):
-    src_dir=None
-    match service:
-        case "rekor":
-            src_dir = f"{get_test_dir()}/../rekor/src"
-        case _:
-            pass
-    return src_dir
+def get_packages_dir():
+    return f"{get_repo_dir()}/packages"
 
 
-def get_bin_dir(service):
-    src_dir=None
-    match service:
-        case "rekor":
-            src_dir = f"{get_test_dir()}/../rekor/bin"
-        case _:
-            pass
-    return src_dir
+def get_src_dir(package_name):
+    org_dir, service_dir = package_name.split("-", 1)
+    service_dir = service_dir.replace("-","_")
+    return f"{get_packages_dir()}/{package_name}/src/{org_dir}/{service_dir}"
+
+
+def get_bin_dir():
+    return f"{get_repo_dir()}/bin"
 
 
 def run_py_program(py_path, py_args, verbose=False):
