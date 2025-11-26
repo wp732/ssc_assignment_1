@@ -1,4 +1,5 @@
-src_dir=""
+proj_dir=${thisdir}/..
+src_dir="${SSC_SRC_DIR}"
 
 while [ $# -ne 0 ]; do
 	case $1 in
@@ -14,12 +15,9 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -z "${src_dir}" ]; then
-	echo "ERROR: must supply -srcdir" >&2
+	echo "ERROR: must supply -srcdir or export SSC_SRC_DIR" >&2
 	exit 255
 fi
 
-cd $src_dir
-[[ $? -ne 0 ]] && exit 255
-
-CNAME=`cat ./CNAME`
-CTAG=`cat ./CTAG`
+CNAME=`cat ${src_dir}/CNAME`
+CTAG=`cat ${src_dir}/CTAG`
