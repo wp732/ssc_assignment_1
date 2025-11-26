@@ -17,10 +17,12 @@ RUN \
 	useradd -m -u ${UID} -g ${GID} user
 
 USER user
+WORKDIR /home/user
 
 RUN \
 	curl -LO https://github.com/trufflesecurity/trufflehog/releases/download/v${THOG_VER}/${THOG_PKG} && \
 	echo "${THOG_SIG} ${THOG_PKG}" | sha256sum -c - && \
-	tar zxvf ${THOG_PKG}
+	tar zxvf ${THOG_PKG} && \
+	rm -f ${THOG_PKG}
 
 CMD ["/bin/sleep","infinity"]

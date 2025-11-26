@@ -6,6 +6,9 @@ while [ $# -ne 0 ]; do
 			shift
 			src_dir=$1
 			;;	
+		* )
+			break
+			;;
 	esac
 	shift
 done
