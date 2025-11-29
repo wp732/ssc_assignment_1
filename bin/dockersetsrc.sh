@@ -19,5 +19,5 @@ if [ -z "${src_dir}" ]; then
 	exit 255
 fi
 
-CNAME=`cat ${src_dir}/CNAME`
-CTAG=`cat ${src_dir}/CTAG`
+CNAME=`cat ${proj_dir}/${src_dir}/CNAME`
+CTAG=`cat ${proj_dir}/${src_dir}/CTAG`
