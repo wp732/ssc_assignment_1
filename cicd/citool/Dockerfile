@@ -34,7 +34,7 @@ WORKDIR /home/${USR}
 
 RUN \
 	mkdir -p /home/${USR}/.local/bin && \
-	echo 'export PATH="/home/${USR}/.local/bin:${PATH}"' >> /home/${USR}/.bashrc && \
+	echo "export PATH=\"/home/${USR}/.local/bin:${PATH}\"" >> /home/${USR}/.bashrc && \
 	curl -LO https://github.com/trufflesecurity/trufflehog/releases/download/v${THOG_VER}/${THOG_PKG} && \
 	echo "${THOG_SIG} ${THOG_PKG}" | sha256sum -c - && \
 	tar zxvf ${THOG_PKG} && \
@@ -48,16 +48,23 @@ RUN \
 	export PATH="${PATH}:${POETRY_BIN_DIR}" && \
 	poetry init --no-interaction
 
-LABEL stage=citoolpoetrystage
+LABEL stage=citoolpoetry1stage
 
-ENV PATH="/home/${USR}/.local/bin:${PATH}"
+ENV HOME="/home/${USR}"
+ENV PATH="${HOME}/.local/bin:${PATH}"
 COPY --chown=${USRGRP} pyproject.toml .
 
 RUN \
-	poetry install --no-root && \
-	echo '#!/bin/bash' > /home/${USR}/docker-entrypoint.sh && \
-	echo 'exec "/home/${USR}/.local/bin/$@"' >> /home/${USR}/docker-entrypoint.sh && \
-	chmod 555 /home/${USR}/docker-entrypoint.sh
+	poetry install --no-root
 
-ENTRYPOINT ["/home/${USR}/docker-entrypoint.sh"]
+LABEL stage=citoolpoetry2stage
+
+RUN \
+	echo '#!/bin/sh' > ${HOME}/docker-entrypoint.sh && \
+	echo 'set -x' >> ${HOME}/docker-entrypoint.sh && \
+	echo 'echo "args: $*"' >> ${HOME}/docker-entrypoint.sh && \
+	echo "exec \"${HOME}/.local/bin/\$@\"" >> ${HOME}/docker-entrypoint.sh && \
+	chmod 555 ${HOME}/docker-entrypoint.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD []
