@@ -63,4 +63,8 @@ RUN \
 
 LABEL stage=citoolpoetry2stage
 
+LABEL org.opencontainers.image.source=https://github.com/wp732/ssc_assignment_1
+LABEL org.opencontainers.image.description="Container for Python CI tooling"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+
 CMD ["/bin/sleep","infinity"]
