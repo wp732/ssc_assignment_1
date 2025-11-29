@@ -54,6 +54,10 @@ ENV PATH="/home/${USR}/.local/bin:${PATH}"
 COPY --chown=${USRGRP} pyproject.toml .
 
 RUN \
-	poetry install --no-root
+	poetry install --no-root && \
+	echo '#!/bin/bash' > /home/${USR}/docker-entrypoint.sh && \
+	echo 'exec "/home/${USR}/.local/bin/$@"' >> /home/${USR}/docker-entrypoint.sh && \
+	chmod 555 /home/${USR}/docker-entrypoint.sh
 
-CMD ["/bin/sleep","infinity"]
+ENTRYPOINT ["/home/${USR}/docker-entrypoint.sh"]
+CMD []
