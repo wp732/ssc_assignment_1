@@ -1,7 +1,6 @@
 #!/bin/bash
 
 thisdir=`(cd \`dirname $0\` > /dev/null 2>&1; pwd)`
-proj_dir=${thisdir}/..
 
 usage() {
 	echo ""
@@ -12,14 +11,10 @@ usage() {
 	echo ""
 }
 
-use_citool=0
 show_output=""
 py_file=""
 while [ $# -ne 0 ]; do
     case $1 in
-        -citool )
-			use_citool=1
-            ;;
         -verbose )
             show_output="-s"
             ;;
@@ -37,19 +32,6 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-cd $proj_dir
+cd ${thisdir}/..
 
-set -x
-if [ $use_citool -eq 1 ]; then
-	docker run \
-		--rm \
-		-t \
-		--name=citool \
-		-u $(id -u):$(id -g) \
-		-v ${proj_dir}:/proj_dir:ro \
-		citool:latest \
-		../../proj_dir/bin/show_missing_imports.sh
-		#poetry run pytest $show_output /proj_dir/tests/${py_file}
-else
-	poetry run pytest $show_output tests/${py_file}
-fi
+poetry run pytest $show_output tests/${py_file}
