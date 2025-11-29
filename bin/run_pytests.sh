@@ -48,7 +48,8 @@ if [ $use_citool -eq 1 ]; then
 		-u $(id -u):$(id -g) \
 		-v ${proj_dir}:/proj_dir:ro \
 		citool:latest \
-		poetry run pytest $show_output /proj_dir/tests/${py_file}
+		../../proj_dir/bin/show_missing_imports.sh
+		#poetry run pytest $show_output /proj_dir/tests/${py_file}
 else
 	poetry run pytest $show_output tests/${py_file}
 fi

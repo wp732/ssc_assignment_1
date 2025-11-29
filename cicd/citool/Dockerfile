@@ -1,11 +1,11 @@
-FROM ubuntu:noble
+FROM debian:bookworm-slim
 ENV DEBIAN_FRONTEND=noninteractive
 LABEL stage=citoolbasestage
 
 ARG UID
 ARG GID
-ARG USR="ubuntu"
-ARG GRP="ubuntu"
+ARG USR="user"
+ARG GRP="user"
 ARG USRGRP="${USR}:${GRP}"
 ARG THOG_VER="3.91.1"
 ARG THOG_SIG="bd9baa510dfbd96ead20621957b838bf950f4cb84e4249bd3f2a29f19eb79fb0"
@@ -17,15 +17,19 @@ SHELL ["/bin/bash", "-c"]
 RUN \
 	set -x && \
 	cd /root && \
-	getent passwd ${UID} && \
+	getent passwd ${UID} || \
 	if [ $? -ne 0 ]; then \
 		groupadd -g ${GID} ${GRP}; \
 		useradd -m -u ${UID} -g ${GID} ${USR}; \
 	fi && \
 	apt -y update && \
 	apt -y install curl && \
+	apt -y install jq && \
 	apt -y install python3 && \
-	apt -y install python3-pip
+	apt -y install python3-pip && \
+	apt -y purge manpages && \
+	apt -y purge manpages-dev && \
+	apt -y autoremove -y
 
 LABEL stage=citoolrootstage
 
@@ -59,12 +63,4 @@ RUN \
 
 LABEL stage=citoolpoetry2stage
 
-RUN \
-	echo '#!/bin/sh' > ${HOME}/docker-entrypoint.sh && \
-	echo 'set -x' >> ${HOME}/docker-entrypoint.sh && \
-	echo 'echo "args: $*"' >> ${HOME}/docker-entrypoint.sh && \
-	echo "exec \"${HOME}/.local/bin/\$@\"" >> ${HOME}/docker-entrypoint.sh && \
-	chmod 555 ${HOME}/docker-entrypoint.sh
-
-ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD []
+CMD ["/bin/sleep","infinity"]
