@@ -13,6 +13,7 @@ jobs:
       options: --user root
       env:
         HOME: /home/user
+        POETRY_VIRTUALENVS_PATH: /home/user/.cache/pypoetry/virtualenvs
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
