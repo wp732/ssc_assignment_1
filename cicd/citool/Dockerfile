@@ -59,7 +59,8 @@ ENV PATH="${HOME}/.local/bin:${PATH}"
 COPY --chown=${USRGRP} pyproject.toml .
 
 RUN \
-	poetry install --no-root
+	poetry install --no-root && \
+	poetry env info -p > ${HOME}/.path_to_toplevel_poetry_venv.txt
 
 LABEL stage=citoolpoetry2stage
 
