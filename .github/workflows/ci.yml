@@ -13,7 +13,6 @@ jobs:
       options: --user root
       env:
         HOME: /home/user
-        PATH: /home/user/.local/bin:$PATH
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
