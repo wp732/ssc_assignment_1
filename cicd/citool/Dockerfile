@@ -23,7 +23,6 @@ RUN \
 		useradd -m -u ${UID} -g ${GID} ${USR}; \
 	fi && \
 	mkdir -p /github && \
-	ln -s /home/${USR} /github/home && \
 	apt -y update && \
 	apt -y install curl && \
 	apt -y install jq && \
