@@ -12,6 +12,8 @@ while [ $# -ne 0 ]; do
 	shift
 done
 
+source ${thisdir}/in_docker.sh
+
 cd ${thisdir}/..
 
 USE_COVERAGE_CMD=1 poetry run pytest --cov=. $report_missing tests/
