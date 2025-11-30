@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-24.04-arm 
     container:
       image: ghcr.io/wp732/citool:latest
+      options: --user root
       env:
         HOME: /home/user
+        PATH: /home/user/.local/bin:$PATH
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
