@@ -26,3 +26,6 @@ jobs:
 
       - name: Run pytests
         run: bin/run_pytests.sh
+
+      - name: Run code coverage check
+        run: bin/run_coverage_tests.sh
