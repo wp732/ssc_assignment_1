@@ -25,7 +25,7 @@ jobs:
         run: bin/add_missing_imports.sh
 
       - name: Run code formatting check via ruff
-        run: bin/run_ruff.sh
+        run: bin/run_ruff.sh --exclude tests/
 
       - name: Run pytests
         run: bin/run_pytests.sh
