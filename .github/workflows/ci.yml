@@ -21,5 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Add missing import packages
+        run: bin/add_missing_imports.sh
+
       - name: Run pytests
         run: bin/run_pytests.sh
