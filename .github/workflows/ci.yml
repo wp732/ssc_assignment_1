@@ -24,6 +24,9 @@ jobs:
       - name: Add missing import packages
         run: bin/add_missing_imports.sh
 
+      - name: Run code formatting check via ruff
+        run: poetry run ruff check
+
       - name: Run pytests
         run: bin/run_pytests.sh
 
