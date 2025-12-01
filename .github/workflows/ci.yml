@@ -30,8 +30,8 @@ jobs:
       - name: Run linting via pylint
         run: bin/run_pylint.sh --disable=C0114,C0115,C0116
  
-       - name: Run pytests
-         run: bin/run_pytests.sh
+      - name: Run pytests
+        run: bin/run_pytests.sh
 #
 #      - name: Run code coverage check
 #        run: bin/run_coverage_tests.sh
