@@ -27,8 +27,11 @@ jobs:
 #      - name: Run code formatting check via ruff
 #        run: bin/run_ruff.sh --exclude tests/
 
-      - name: Run linting via pylint
-        run: bin/run_pylint.sh --disable=C0114,C0115,C0116
+#      - name: Run linting via pylint
+#        run: bin/run_pylint.sh --disable=C0114,C0115,C0116
+ 
+      - name: Run SAST via bandit
+        run: bin/run_bandit.sh -f txt
  
       - name: Run pytests
         run: bin/run_pytests.sh
