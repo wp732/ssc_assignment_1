@@ -15,7 +15,7 @@ from wp732.rekor_tools.util import (
     verify_artifact_signature,
 )
 from wp732.rekor_tools.merkle_proof import (
-    DefaultHasher,
+    DEFAULT_HASHER,
     verify_consistency,
     verify_inclusion,
     compute_leaf_hash,
@@ -247,7 +247,7 @@ def inclusion(log_index, artifact_filepath, debug=False):
         # inclusionProof sibling hashes and leaf hash and
         # comparing that to rootHash from inclusionProof.
         verify_inclusion(
-            DefaultHasher, index, tree_size, leaf_hash, hashes, root_hash
+            DEFAULT_HASHER, index, tree_size, leaf_hash, hashes, root_hash
         )
         print("Offline root hash calculation for inclusion verified")
 
@@ -310,7 +310,7 @@ def consistency(prev_checkpoint, debug=False):
             )
             if consistency_proof is not None:
                 verify_consistency(
-                    DefaultHasher,
+                    DEFAULT_HASHER,
                     prev_checkpoint["treeSize"],
                     checkpoint["treeSize"],
                     consistency_proof["hashes"],
