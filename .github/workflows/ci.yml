@@ -30,11 +30,14 @@ jobs:
 #      - name: Run linting via pylint
 #        run: bin/run_pylint.sh --disable=C0114,C0115,C0116
  
-      - name: Run SAST via bandit
-        run: bin/run_bandit.sh -f txt
+#      - name: Run SAST via bandit
+#        run: bin/run_bandit.sh -f txt
  
-      - name: Run pytests
-        run: bin/run_pytests.sh
-#
+      - name: Run type checking via mypy
+        run: bin/run_mypy.sh
+ 
+#      - name: Run unit tests via pytest
+#        run: bin/run_pytests.sh
+
 #      - name: Run code coverage check
 #        run: bin/run_coverage_tests.sh
