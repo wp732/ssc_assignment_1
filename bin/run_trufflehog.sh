@@ -18,4 +18,4 @@ trufflehog git \
 	--no-color \
 	--branch HEAD \
 	--fail \
-	file:///repo
+	file:///.
