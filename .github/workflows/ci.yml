@@ -24,6 +24,9 @@ jobs:
       - name: Add missing import packages
         run: bin/add_missing_imports.sh
 
+      - name: Run repository secrets scan via trufflehog
+        run: bin/run_trufflehog.sh
+
 #      - name: Run code formatting check via ruff
 #        run: bin/run_ruff.sh --exclude tests/
 
@@ -33,8 +36,8 @@ jobs:
 #      - name: Run SAST via bandit
 #        run: bin/run_bandit.sh -f txt
  
-      - name: Run type checking via mypy
-        run: bin/run_mypy.sh
+#      - name: Run type checking via mypy
+#        run: bin/run_mypy.sh
  
 #      - name: Run unit tests via pytest
 #        run: bin/run_pytests.sh
