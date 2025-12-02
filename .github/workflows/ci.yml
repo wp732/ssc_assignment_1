@@ -23,6 +23,8 @@ jobs:
 
       - name: Run repository secrets scan via trufflehog
         run: bin/run_trufflehog.sh
+        env:
+          THOG_LOG_LEVEL: ${{ vars.THOG_LOG_LEVEL}}
 
       - name: Add missing import packages
         run: bin/add_missing_imports.sh
