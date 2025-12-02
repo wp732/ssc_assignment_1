@@ -22,6 +22,5 @@ trufflehog filesystem . \
 	--no-update \
 	--no-verification \
 	--no-color \
-	--log-level=${THOG_LOG_LEvEL:-3} \
+	--log-level=${THOG_LOG_LEvEL:-2} \
 	--fail
-
