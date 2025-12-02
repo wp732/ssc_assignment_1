@@ -22,5 +22,6 @@ trufflehog filesystem . \
 	--no-update \
 	--no-verification \
 	--no-color \
+	--log-level=5 \
 	--fail
 
