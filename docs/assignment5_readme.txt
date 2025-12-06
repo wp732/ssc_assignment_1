@@ -39,3 +39,15 @@
 # After publication I change permissions for the container to read only 
 # via Package Settings at https://github.com/wp732/ssc_assignment_1/pkgs/container/citool
 
+# With the citool container in place, I then cretaed .github/workflows/ci.yml that makes
+# use of the this container during the test: job that gets trigger when a push to main
+# branch occurs. The test job will launch the container in a GitHub runner (you will
+# note I use ubuntu-24.04-arm for the runner since I built my container on my
+# Raspberry PI system and didn't want to worry about any quirks with it running on an
+# x64 runner.  
+
+# Once the container is launched, the test job steps that follow clone the repo into
+# the contianer and then run the requisite verifiaction tools are per the assignment
+# rubric. The step called "Add missing import packages" runs a script of similar name
+# whose job is to determine what packages need to be poetry installed to satisify
+# the imports that reside in 
