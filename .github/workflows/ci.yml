@@ -21,25 +21,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-#      - name: Run repository secrets scan via trufflehog
-#        run: bin/run_trufflehog.sh
-#        env:
-#          THOG_LOG_LEVEL: ${{ vars.THOG_LOG_LEVEL }}
-#
-#      - name: Add missing import packages
-#        run: bin/add_missing_imports.sh
-# 
-#      - name: Run SAST via bandit
-#        run: bin/run_bandit.sh -f txt
-#
-#      - name: Run code formatting check via ruff
-#        run: bin/run_ruff.sh --exclude tests/
-#
-#      - name: Run linting via pylint
-#        run: bin/run_pylint.sh --disable=C0114,C0115,C0116
-# 
-#      - name: Run type checking via mypy
-#        run: bin/run_mypy.sh
+      - name: Run repository secrets scan via trufflehog
+        run: bin/run_trufflehog.sh
+        env:
+          THOG_LOG_LEVEL: ${{ vars.THOG_LOG_LEVEL }}
+
+      - name: Add missing import packages
+        run: bin/add_missing_imports.sh
+ 
+      - name: Run SAST via bandit
+        run: bin/run_bandit.sh -f txt
+
+      - name: Run code formatting check via ruff
+        run: bin/run_ruff.sh --exclude tests/
+
+      - name: Run linting via pylint
+        run: bin/run_pylint.sh --disable=C0114,C0115,C0116
+ 
+      - name: Run type checking via mypy
+        run: bin/run_mypy.sh
  
       - name: Run unit tests via pytest
         run: bin/run_pytests.sh

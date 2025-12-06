@@ -49,5 +49,7 @@
 # Once the container is launched, the test job steps that follow clone the repo into
 # the contianer and then run the requisite verifiaction tools are per the assignment
 # rubric. The step called "Add missing import packages" runs a script of similar name
-# whose job is to determine what packages need to be poetry installed to satisify
-# the imports that reside in 
+# whose job is to run a poetry add -D for any source project under packages directory
+# in order to ensure that packages for imports in those package level pyproject.toml
+# files get installed prior to running tools like pytest which will fail to execute
+# tests properly if those import dependecy packages are not installed prior to testing.
