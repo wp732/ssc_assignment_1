@@ -32,6 +32,8 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+source ${thisdir}/in_docker.sh
+ 
 cd ${thisdir}/..
 
 poetry run pytest $show_output tests/${py_file}

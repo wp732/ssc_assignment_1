@@ -33,8 +33,8 @@ class Hasher:
         return self.new().digest_size
 
 
-# DefaultHasher is a SHA256 based LogHasher
-DefaultHasher = Hasher(hashlib.sha256)
+# DEFAULT_HASHER is a SHA256 based LogHasher
+DEFAULT_HASHER = Hasher(hashlib.sha256)
 
 
 def verify_consistency(hasher, size1, size2, proof, root1, root2):
