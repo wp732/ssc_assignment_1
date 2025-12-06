@@ -36,5 +36,5 @@ jobs:
         with:
           cosign-release: 'v3.0.2'
 
-      - name: Verify Cosign is installed
-        run: cosign version
+      - name: Cosign attest of whl with embedded SBOM
+        run: bin/whl_create_attest.sh < /dev/null
