@@ -44,3 +44,13 @@ The instructions for how the commands were installed and run for following are i
 Part 1: Publishing packages to PyPi via poetry publish  
 
 Part 2: SBOM generation and package attestation  
+
+# SSC assignment 5 (CI, CD, Repo assessment)  
+
+The instructions for how the commands were installed and run for following are in docs/assignment5_readme.txt  
+
+Part 1: Continuous Integration  
+
+Part 2: Continuous Deployment  
+
+Part 3: Repository Assessment  
