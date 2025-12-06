@@ -26,6 +26,7 @@ RUN \
 	apt -y update && \
 	apt -y install curl && \
 	apt -y install jq && \
+	apt -y install git && \
 	apt -y install python3 && \
 	apt -y install python3-pip && \
 	apt -y purge manpages && \
