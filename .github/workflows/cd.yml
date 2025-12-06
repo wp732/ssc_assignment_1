@@ -18,9 +18,10 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-#    permissions:
-#      contents: write   # needed to upload release assets
-#      id-token: write   # needed for cosign keyless signing
+    permissions:
+      contents: write   # needed to upload release assets
+      id-token: write   # needed for cosign keyless signing
+      packages: read    # needed to pull container from ghcr.io
 
     steps:
       - uses: actions/checkout@v4
@@ -38,3 +39,5 @@ jobs:
 
       - name: Cosign attest of whl with embedded SBOM
         run: bin/whl_create_attest.sh < /dev/null
+        env:
+          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
