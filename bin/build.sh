@@ -17,3 +17,8 @@ ${proj_dir}/bin/sbom_create.sh
 cd ${proj_dir}/packages/wp732-rekor-tools
 echo "INFO: Building package"
 poetry build
+[[ $? -ne 0 ]] && exit 255
+
+if [ -r .poetry-dynamic-versioning ]; then
+	echo "INFO: Built version of package is `cat .poetry-dynamic-versioning`"
+fi

@@ -61,6 +61,7 @@ COPY --chown=${USRGRP} pyproject.toml .
 
 RUN \
 	poetry install --no-root && \
+	poetry self add poetry-dynamic-versioning && \
 	poetry env info -p > ${HOME}/.path_to_toplevel_poetry_venv.txt
 
 LABEL stage=citoolpoetry2stage

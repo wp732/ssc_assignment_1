@@ -1,6 +1,5 @@
 [tool.poetry]
 name = "wp732-rekor-tools"
-version = "4.0.1"
 description = "Tools to make using Rekor eaiser"
 license = "Apache-2.0"
 readme = "src/wp732/rekor_tools/README.md"
