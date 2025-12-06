@@ -39,7 +39,7 @@
 # After publication I change permissions for the container to read only 
 # via Package Settings at https://github.com/wp732/ssc_assignment_1/pkgs/container/citool
 
-# With the citool container in place, I then cretaed .github/workflows/ci.yml that makes
+# With the citool container in place, I then created .github/workflows/ci.yml that makes
 # use of the this container during the test: job that gets trigger when a push to main
 # branch occurs. The test job will launch the container in a GitHub runner (you will
 # note I use ubuntu-24.04-arm for the runner since I built my container on my
@@ -47,9 +47,18 @@
 # x64 runner.  
 
 # Once the container is launched, the test job steps that follow clone the repo into
-# the contianer and then run the requisite verifiaction tools are per the assignment
+# the container and then run the requisite verification tools are per the assignment
 # rubric. The step called "Add missing import packages" runs a script of similar name
 # whose job is to run a poetry add -D for any source project under packages directory
 # in order to ensure that packages for imports in those package level pyproject.toml
 # files get installed prior to running tools like pytest which will fail to execute
-# tests properly if those import dependecy packages are not installed prior to testing.
+# tests properly if those import dependency packages are not installed prior to testing.
+
+# Note that the requirements for Part 1 of this assignment were to trigger CI on a
+# push to main branch. During development of Part 1 I did all the work on a
+# feature branch called testci as I did not want to pollute the main branch with a
+# ton of commits. Once I was done testing to completion on testci branch I merged it
+# all to main but then in order to test the push to main I needed to temporarily
+# disable the main branch protection ruleset that was in place.
+
+
