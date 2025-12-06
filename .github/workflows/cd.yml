@@ -25,6 +25,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+
+      - name: Create temporary .git workspace needed by poetry dynamic versioning
+        run: git worktree add packages/wp732-rekor-tools
 
       - name: Prep Poetry
         run: poetry add -D ./packages/wp732-rekor-tools
