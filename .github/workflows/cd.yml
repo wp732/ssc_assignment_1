@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'a5p2'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm 
+    container:
+      image: ghcr.io/wp732/citool:latest
+      options: --user root
+      env:
+        HOME: /home/user
+        POETRY_VIRTUALENVS_PATH: /home/user/.cache/pypoetry/virtualenvs
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+#      - name: Add missing import packages
+#        run: bin/add_missing_imports.sh
+
+      - name: Prep Poetry
+        run: poetry add -D ./packages/wp732-rekor-tools
+
+      - name: Build
+        run: bin/build.sh
