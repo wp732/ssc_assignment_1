@@ -93,5 +93,11 @@
 # trouble locating the output bundle-path for inclusion in the release assets. I eventually
 # figured out how to resolve this via the Save attestation bundle step (see cd.yml).
 
-# Finally I added a step in the workflow to upload the whl, source tar.gz,
+# Finally for Part 2 I added a step in the workflow to upload the whl, source tar.gz,
 # SBOM json file, and attestation.json file to the release assets.
+
+## Part 3: Repo Assessment
+
+# The steps to satisfy the requirements for this last part of assignment 5 were to conffigure
+# the proper code to enable the badges requested to appear in the top level README.md file.
+# This was a fairly straight forward effort of following the links provided in the rubric.
