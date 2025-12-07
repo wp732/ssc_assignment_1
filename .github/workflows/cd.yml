@@ -57,7 +57,7 @@ jobs:
         uses: actions/attest-build-provenance@v3
         with:
           subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_PAT }}
 
       - name: Create or update release
         uses: softprops/action-gh-release@v2
