@@ -2,6 +2,7 @@
 
 [![release](https://github.com/wp732/ssc_assignment_1/actions/workflows/cd.yml/badge.svg)](https://github.com/wp732/ssc_assignment_1/actions/workflows/cd.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/wp732/ssc_assignment_1/badge)](https://scorecard.dev/viewer/?uri=github.com/wp732/ssc_assignment_1)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11571/badge)](https://www.bestpractices.dev/projects/11571)
 
 # SSC assignment 1 (using Sigstore tools)   
 
