@@ -15,7 +15,7 @@ ${proj_dir}/bin/sbom_create.sh
 [[ $? -ne 0 ]] && exit 255
 
 cd ${proj_dir}/packages/wp732-rekor-tools
-export POETRY_DYNAMIC_VERSION=$(git describe --tags --abbrev=0)
+export POETRY_DYNAMIC_VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
 export POETRY_DYNAMIC_VERSION_OVERRIDE=true
 echo "INFO: Building package version ${POETRY_DYNAMIC_VERSION}"
 poetry build
