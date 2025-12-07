@@ -56,16 +56,17 @@ jobs:
 #          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
 
       - name: Attest SBOM
+        id: attestsbom
         uses: actions/attest-sbom@v3
         with:
           subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
           sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
           github-token: ${{ secrets.GH_PAT }}
 
-      - name: Debug bundle location
+      - name: Save attestation bundle
         run: |
-          find /tmp -ls
-          find /home/user -ls
+          cp "${{ steps.attestsbom.outputs.bundle-path }}" /home/user/attestation.json || echo "Not found"
+          ls -ld /home/user/attestation.json
 
 ## This was what I tried to use before realizing that attest-sbom action was the proper
 ## action to be used for assignment 5
@@ -83,8 +84,8 @@ jobs:
             packages/wp732-rekor-tools/dist/*.whl
             packages/wp732-rekor-tools/dist/*.tar.gz
             packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
-            /tmp/attestation.json
+            /home/user/attestation.json
 ## If I was using my whl_create_attest.sh script instead of attest-sbom action
 ## this would have been the bundle to include in release assets instead of
-## /tmp/attestation.json which attest-sbom action produces: 
+## /home/user/attestation.json which attest-sbom action produces: 
 #            packages/wp732-rekor-tools/dist/sbom-attestation.bundle
