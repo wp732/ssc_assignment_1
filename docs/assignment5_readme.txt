@@ -39,12 +39,14 @@
 # After publication I change permissions for the container to read only 
 # via Package Settings at https://github.com/wp732/ssc_assignment_1/pkgs/container/citool
 
+## Part 1: CI
+
 # With the citool container in place, I then created .github/workflows/ci.yml that makes
 # use of the this container during the test: job that gets trigger when a push to main
 # branch occurs. The test job will launch the container in a GitHub runner (you will
 # note I use ubuntu-24.04-arm for the runner since I built my container on my
 # Raspberry PI system and didn't want to worry about any quirks with it running on an
-# x64 runner.  
+# x64 runner).  
 
 # Once the container is launched, the test job steps that follow clone the repo into
 # the container and then run the requisite verification tools are per the assignment
@@ -61,4 +63,24 @@
 # all to main but then in order to test the push to main I needed to temporarily
 # disable the main branch protection ruleset that was in place.
 
+## Part 2: CD
 
+# The .github/workflows/cd.yml also makes use of the citool container. Since one of the
+# requirements for the assignment was to have the release version tag be based off of
+# the version assigned to the package during poetry build, I modified the container to
+# include poetry-dynamic-versioning plugin and git (which is used to fetch the latest
+# git tag and pass it as export POETRY_DYNAMIC_VERSION in the build.sh script which
+# is used by poetry build to override the default version declaration in the package
+# level pyproject.toml). The with: fetch-depth: 0 and fetch-tags: true added to the
+# git checkout step in cd.yml ensure that the latest tag (which triggered the flow)
+# is pulled in during the clone and POETRY_DYNAMIC_VERSION picks it up in the
+# build.sh script via git describe --tags --abbrev=0 which is why git must exist in
+# the citool container.
+
+# Taking care of the cosign attestation requirement was solved using the script I had
+# created in assignment 4 (bin/whl_create_attest.sh), but with the need to have cd.yml
+# install cosign via sigstore/cosign-installer@v4.0.0 and some stdin redirect magic
+# and disablement of cosign interactive mode so that bin/whl_create_attest.sh could
+# work without manual intervention (see cd.yml for details).
+
+ 
