@@ -65,8 +65,7 @@ jobs:
 
       - name: Save attestation bundle
         run: |
-          cp "${{ steps.attestsbom.outputs.bundle-path }}" /home/user/attestation.json || echo "Not found"
-          ls -ld /home/user/attestation.json
+          cp "${{ steps.attestsbom.outputs.bundle-path }}" /home/user/attestation.json || echo "bundle-path not found"
 
 ## This was what I tried to use before realizing that attest-sbom action was the proper
 ## action to be used for assignment 5
