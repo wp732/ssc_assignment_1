@@ -14,6 +14,9 @@ include = [
 include = "wp732"
 from = "src"
 
+[tool.poetry-dynamic-versioning]
+enable = true
+
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
 jsonschema = ">=4.25.1,<5.0.0"
