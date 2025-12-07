@@ -16,6 +16,7 @@ from = "src"
 
 [tool.poetry-dynamic-versioning]
 enable = true
+metadata = false
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
