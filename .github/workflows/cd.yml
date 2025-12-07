@@ -62,6 +62,11 @@ jobs:
           sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
           github-token: ${{ secrets.GH_PAT }}
 
+      - name: Debug bundle location
+        run: |
+          find /tmp -ls
+          find /home/user -ls
+
 ## This was what I tried to use before realizing that attest-sbom action was the proper
 ## action to be used for assignment 5
 #      - name: Attest whl build provenance to GitHub Attestations
