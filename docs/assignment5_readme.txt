@@ -83,4 +83,11 @@
 # and disablement of cosign interactive mode so that bin/whl_create_attest.sh could
 # work without manual intervention (see cd.yml for details).
 
- 
+# In addition to the cosign atestation processing, it also seemed from the rubric
+# that additional GitHub attestation processing was needed (although it was not
+# clear if this was a requirement I added it any way using a git action via
+# actions/attest-build-provenance@v3 which published an attestation of the whl
+# file to https://github.com/wp732/ssc_assignment_1/attestations
+
+# Finally I added a step in the workflow to upload the whl, source tar.gz and
+# SBOM json file to the release assests.
