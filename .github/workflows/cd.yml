@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v*"
 
 jobs:
   build:
@@ -52,8 +52,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          draft: false
-          prerelase: false
           files: |
             packages/wp732-rekor-tools/dist/*.whl
             packages/wp732-rekor-tools/dist/*.tar.gz
