@@ -35,7 +35,7 @@ jobs:
       - name: Prep Poetry
         run: poetry add -D ./packages/wp732-rekor-tools
 
-      - name: Get package version from script # need this later for SBOM attest step
+      - name: Get package version from script # need this later for GH attest step
         id: get_package_version
         run: |
           echo "version=$(./bin/get_package_version.sh)" >> $GITHUB_OUTPUT
@@ -53,12 +53,11 @@ jobs:
         env:
           GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
 
-#      - name: Publish SBOM attestation
-#        uses: actions/attest-sbom@v3
-#        with:
-#          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
-#          sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
-#          sbom-format: cyclonedx
+      - name: Attest whl build provenance to GitHub Attestations
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create or update release
         uses: softprops/action-gh-release@v2
