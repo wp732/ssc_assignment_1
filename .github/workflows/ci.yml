@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false # needed to prevent trufflehog from failing
 
       - name: Run repository secrets scan via trufflehog
         run: bin/run_trufflehog.sh
