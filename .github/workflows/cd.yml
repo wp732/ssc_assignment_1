@@ -56,7 +56,8 @@ jobs:
       - name: Attest SBOM
         uses: actions/attest-sbom@v3
         with:
-          subject-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
+          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
+          sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
           github-token: ${{ secrets.GH_PAT }}
 
       - name: Attest whl build provenance to GitHub Attestations
