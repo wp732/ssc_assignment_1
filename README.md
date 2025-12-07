@@ -1,7 +1,7 @@
 # Repository for Software Supply Chain security assignments  
 
 [![release](https://github.com/wp732/ssc_assignment_1/actions/workflows/cd.yml/badge.svg)](https://github.com/wp732/ssc_assignment_1/actions/workflows/cd.yml)
-[![openssf scorecard](https://github.com/wp732/ssc_assignment_1/actions/workflows/scorecard.yml/badge.svg)](https://github.com/wp732/ssc_assignment_1/actions/workflows/scorecard.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/wp732/ssc_assignment_1/badge)](https://scorecard.dev/viewer/?uri=github.com/wp732/ssc_assignment_1)
 
 # SSC assignment 1 (using Sigstore tools)   
 
