@@ -49,7 +49,7 @@ jobs:
           cosign-release: 'v3.0.2'
 
       - name: Cosign attest of whl with embedded SBOM
-        run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
+        run: bin/whl_create_attest.sh -ghattestpage < /dev/null # null to stdin disables prompt barrier
         env:
           GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
 
