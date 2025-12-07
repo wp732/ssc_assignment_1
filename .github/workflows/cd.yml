@@ -48,18 +48,17 @@ jobs:
         with:
           cosign-release: 'v3.0.2'
 
-#      - name: Cosign attest of whl with embedded SBOM
-#        run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
-#        env:
-#          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
+      - name: Cosign attest of whl with embedded SBOM
+        run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
+        env:
+          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
 
-      - name: Publish SBOM attestation
-        uses: actions/attest-sbom@v3
-        with:
-          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
-          sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
-          sbom-format: cyclonedx
-          bundle: packages/wp732-rekor-tools/dist/sbom-attestation.bundle
+#      - name: Publish SBOM attestation
+#        uses: actions/attest-sbom@v3
+#        with:
+#          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
+#          sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
+#          sbom-format: cyclonedx
 
       - name: Create or update release
         uses: softprops/action-gh-release@v2

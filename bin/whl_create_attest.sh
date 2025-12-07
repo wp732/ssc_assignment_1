@@ -5,6 +5,18 @@
 thisdir=`(cd \`dirname $0\` > /dev/null 2>&1; pwd)`
 proj_dir=${thisdir}/..
 
+gh_attest_key=""
+while [ $# -ne 0 ]; do
+	case $1 in
+		-ghattestpage )	# publish attestation to github /attestations page for repo
+			if [ ! -z "${GITHUB_REPOSITORY}" ]; then
+				eval gh_attest_key='--key "github://repo/${GITHUB_REPOSITORY}/ref/${GITHUB_REF}"'
+			fi
+			;;
+	esac
+	shift
+done
+
 pkg_name="wp732-rekor-tools"
 pkg_dir=${proj_dir}/packages/${pkg_name}
 
@@ -19,6 +31,7 @@ echo ""
 
 set -x
 cosign attest-blob \
+	${gh_attest_key} \
 	--bundle ${dist_dir}/sbom-attestation.bundle \
 	--output-attestation ${HOME}/${pkg_name}_attest.json \
 	--predicate ${dist_dir}/cyclonedx-sbom.json \
