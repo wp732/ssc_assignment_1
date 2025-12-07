@@ -1,5 +1,7 @@
 # Repository for Software Supply Chain security assignments  
 
+[![CI](https://github.com/wp732/ssc_assignment_1/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wp732/ssc_assignment_1/actions/workflows/ci.yml)
+
 # SSC assignment 1 (using Sigstore tools)   
 
 The release entitled "Working version of assignment 1" was the snapshot of this assignment  
