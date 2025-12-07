@@ -29,6 +29,9 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Mark repo as safe # workaround for poetry dymanic version check error
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
       - name: Prep Poetry
         run: poetry add -D ./packages/wp732-rekor-tools
 
