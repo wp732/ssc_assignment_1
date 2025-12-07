@@ -26,6 +26,7 @@ RUN \
 	apt -y update && \
 	apt -y install curl && \
 	apt -y install jq && \
+	apt -y install git && \
 	apt -y install python3 && \
 	apt -y install python3-pip && \
 	apt -y purge manpages && \
@@ -61,6 +62,7 @@ COPY --chown=${USRGRP} pyproject.toml .
 
 RUN \
 	poetry install --no-root && \
+	poetry self add poetry-dynamic-versioning && \
 	poetry env info -p > ${HOME}/.path_to_toplevel_poetry_venv.txt
 
 LABEL stage=citoolpoetry2stage

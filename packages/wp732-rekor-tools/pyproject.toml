@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wp732-rekor-tools"
-version = "4.0.1"
+version = "0.0.0" # POETRY_DYNAMIC_VERSION overwrites this dummy version
 description = "Tools to make using Rekor eaiser"
 license = "Apache-2.0"
 readme = "src/wp732/rekor_tools/README.md"
@@ -13,6 +13,9 @@ include = [
 [[tool.poetry.packages]]
 include = "wp732"
 from = "src"
+
+[tool.poetry-dynamic-versioning]
+enable = true
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"

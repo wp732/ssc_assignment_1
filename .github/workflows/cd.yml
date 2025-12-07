@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm 
+    container:
+      image: ghcr.io/wp732/citool:latest
+      options: --user root
+      env:
+        HOME: /home/user
+        POETRY_VIRTUALENVS_PATH: /home/user/.cache/pypoetry/virtualenvs
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    permissions:
+      contents: write   # needed to upload release assets
+      id-token: write   # needed for cosign keyless signing
+      packages: read    # needed to pull container from ghcr.io
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Mark repo as safe # workaround for poetry dymanic version check error
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Prep Poetry
+        run: poetry add -D ./packages/wp732-rekor-tools
+
+      - name: Build
+        run: bin/build.sh
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v4.0.0
+        with:
+          cosign-release: 'v3.0.2'
+
+      - name: Cosign attest of whl with embedded SBOM
+        run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
+        env:
+          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
+
+      - name: Create or update release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          draft: false
+          prerelase: false
+          files: |
+            packages/wp732-rekor-tools/dist/*.whl
+            packages/wp732-rekor-tools/dist/*.tar.gz
+            packages/wp732-rekor-tools/dist/sbom-attestation.bundle
