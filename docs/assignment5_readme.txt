@@ -73,7 +73,9 @@
 # variable is used by poetry build to override the default version declaration in the
 # package level pyproject.toml). The with: fetch-depth: 0 and fetch-tags: true added to
 # the git checkout step in cd.yml ensure that the latest tag (which triggered the flow)
-# is pulled in during the clone (see bin/build.sh for details).
+# is pulled in during the clone (see bin/get_package_version.sh which was modified to 
+# get version from git tag as opposed to version variable in pyproject.toml and
+# bin/build.sh which now sets POETRY_DYNAMIC_VERSIONING_BYPASS from it).
 
 # Taking care of the cosign attestation requirement was solved using the script I had
 # created in assignment 4 (bin/whl_create_attest.sh), but with the need to have cd.yml
