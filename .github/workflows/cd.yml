@@ -29,7 +29,10 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Create temporary .git workspace needed by poetry dynamic versioning
+      - name: Make Git repo safe  # needed for git worktree
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Create temporary .git workspace # needed by poetry dynamic versioning
         run: git worktree add packages/wp732-rekor-tools
 
       - name: Prep Poetry
