@@ -69,7 +69,7 @@
 # requirements for the assignment was to have the release version tag be based off of
 # the version assigned to the package during poetry build, I modified the container to
 # include poetry-dynamic-versioning plugin and git (which is used to fetch the latest
-# git tag and set it to POETRY_DYNAMIC_VERSIONING_BYPASS envrionment variable. This
+# git tag and set it to POETRY_DYNAMIC_VERSIONING_BYPASS environment variable. This
 # variable is used by poetry build to override the default version declaration in the
 # package level pyproject.toml). The with: fetch-depth: 0 and fetch-tags: true added to
 # the git checkout step in cd.yml ensure that the latest tag (which triggered the flow)
@@ -77,17 +77,21 @@
 # get version from git tag as opposed to version variable in pyproject.toml and
 # bin/build.sh which now sets POETRY_DYNAMIC_VERSIONING_BYPASS from it).
 
-# Taking care of the cosign attestation requirement was solved using the script I had
-# created in assignment 4 (bin/whl_create_attest.sh), but with the need to have cd.yml
+# At first, taking care of the cosign attestation requirement was solved using the script
+# I had created in assignment 4 (bin/whl_create_attest.sh), but with the need to have cd.yml
 # install cosign via sigstore/cosign-installer@v4.0.0 and some stdin redirect magic
 # and disablement of cosign interactive mode so that bin/whl_create_attest.sh could
-# work without manual intervention (see cd.yml for details).
-
-# In addition to the cosign atestation processing, it also seemed from the rubric
+# work without manual intervention (see cd.yml commented out code for details).
+# However, in addition to the cosign attestation processing, it also seemed from the rubric
 # that additional GitHub attestation processing was needed (although it was not
-# clear if this was a requirement I added it any way using a git action via
+# clear to me if this was a requirement?). I first tried using a git action via
 # actions/attest-build-provenance@v3 which published an attestation of the whl
-# file to https://github.com/wp732/ssc_assignment_1/attestations
+# file to https://github.com/wp732/ssc_assignment_1/attestations but this seemed to
+# produce a SLSA attestation as opposed to the CycloneDX attestation shown in the rubric
+# (again you can see this code commented out in the cd.yml).
+# I then replaced this with the action suggested in the rubric (attest-sbom) but I had
+# trouble locating the output bundle-path for inclusion in the release assets. I eventually
+# figured out how to resolve this via the Save attestation bundle step (see cd.yml).
 
-# Finally I added a step in the workflow to upload the whl, source tar.gz and
-# SBOM json file to the release assests.
+# Finally I added a step in the workflow to upload the whl, source tar.gz,
+# SBOM json file, and attestation.json file to the release assets.
