@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-    branches:
-      - 'a5p2'
+    tags:
+      - "v*.*.*"
 
 jobs:
   build:
@@ -47,3 +47,14 @@ jobs:
         run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
         env:
           GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
+
+      - name: Create or update release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          draft: false
+          prerelase: false
+          files: |
+            packages/wp732-rekor-tools/dist/*.whl
+            packages/wp732-rekor-tools/dist/*.tar.gz
+            packages/wp732-rekor-tools/dist/sbom-attestation.bundle
