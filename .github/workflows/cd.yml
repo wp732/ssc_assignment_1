@@ -43,13 +43,15 @@ jobs:
       - name: Build
         run: bin/build.sh
 
+## This was attempt to reuse the script I previously created to do cosign attest-blob,
+## however, it did not have ability to update the GitHub /attestations page. 
 #      - name: Install Cosign
 #        uses: sigstore/cosign-installer@v4.0.0
 #        with:
 #          cosign-release: 'v3.0.2'
 #
 #      - name: Cosign attest of whl with embedded SBOM
-#        run: bin/whl_create_attest.sh -ghattestpage < /dev/null # null to stdin disables prompt barrier
+#        run: bin/whl_create_attest.sh < /dev/null # null to stdin disables prompt barrier
 #        env:
 #          GITHUB_ACTIONS: "true"  # needed to disable cosign interactive mode
 
@@ -60,11 +62,13 @@ jobs:
           sbom-path: packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
           github-token: ${{ secrets.GH_PAT }}
 
-      - name: Attest whl build provenance to GitHub Attestations
-        uses: actions/attest-build-provenance@v3
-        with:
-          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
-          github-token: ${{ secrets.GH_PAT }}
+## This was what I tried to use before realizing that attest-sbom action was the proper
+## action to be used for assignment 5
+#      - name: Attest whl build provenance to GitHub Attestations
+#        uses: actions/attest-build-provenance@v3
+#        with:
+#          subject-path: packages/wp732-rekor-tools/dist/wp732_rekor_tools-${{ steps.get_package_version.outputs.version }}-py3-none-any.whl
+#          github-token: ${{ secrets.GH_PAT }}
 
       - name: Create or update release
         uses: softprops/action-gh-release@v2
@@ -74,4 +78,8 @@ jobs:
             packages/wp732-rekor-tools/dist/*.whl
             packages/wp732-rekor-tools/dist/*.tar.gz
             packages/wp732-rekor-tools/dist/cyclonedx-sbom.json
+            /tmp/attestation.json
+## If I was using my whl_create_attest.sh script instead of attest-sbom action
+## this would have been the bundle to include in release assets instead of
+## /tmp/attestation.json which attest-sbom action produces: 
 #            packages/wp732-rekor-tools/dist/sbom-attestation.bundle
