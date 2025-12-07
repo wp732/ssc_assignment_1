@@ -69,13 +69,11 @@
 # requirements for the assignment was to have the release version tag be based off of
 # the version assigned to the package during poetry build, I modified the container to
 # include poetry-dynamic-versioning plugin and git (which is used to fetch the latest
-# git tag and pass it as export POETRY_DYNAMIC_VERSION in the build.sh script which
-# is used by poetry build to override the default version declaration in the package
-# level pyproject.toml). The with: fetch-depth: 0 and fetch-tags: true added to the
-# git checkout step in cd.yml ensure that the latest tag (which triggered the flow)
-# is pulled in during the clone and POETRY_DYNAMIC_VERSION picks it up in the
-# build.sh script via git describe --tags --abbrev=0 which is why git must exist in
-# the citool container.
+# git tag and set it to POETRY_DYNAMIC_VERSIONING_BYPASS envrionment variable. This
+# variable is used by poetry build to override the default version declaration in the
+# package level pyproject.toml). The with: fetch-depth: 0 and fetch-tags: true added to
+# the git checkout step in cd.yml ensure that the latest tag (which triggered the flow)
+# is pulled in during the clone (see bin/build.sh for details).
 
 # Taking care of the cosign attestation requirement was solved using the script I had
 # created in assignment 4 (bin/whl_create_attest.sh), but with the need to have cd.yml
