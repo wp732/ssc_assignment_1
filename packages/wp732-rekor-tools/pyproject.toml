@@ -1,5 +1,6 @@
 [tool.poetry]
 name = "wp732-rekor-tools"
+version = "0.0.0" # POETRY_DYNAMIC_VERSION overwrites this dummy version
 description = "Tools to make using Rekor eaiser"
 license = "Apache-2.0"
 readme = "src/wp732/rekor_tools/README.md"
